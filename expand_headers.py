@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 
 if len(sys.argv) != 3:
@@ -17,6 +19,7 @@ inf.close()
 includes = []
 usings = []
 typedefs = []
+local = set()
 
 i = 0
 while i < len(lines):
@@ -26,9 +29,15 @@ while i < len(lines):
 		includes.append(' '.join(lines[i].split()) + '\n')
 		del lines[i]
 	elif lines[i].startswith("#include \""):
-		file = open(path + lines[i].split()[1][1:-1], "r")
-		lines = lines[:i] + file.readlines() + lines[i+1:]
-		file.close()
+		name0 = lines[i].split()[1][1:-1]
+		name = name0.split('/')[-1]
+		if name in local:
+			del lines[i]
+		else:
+			local.add(name)
+			file = open(path + name0, "r")
+			lines = lines[:i] + file.readlines() + lines[i+1:]
+			file.close()
 	elif lines[i].startswith("using "):
 		usings.append(' '.join(lines[i].split()) + '\n')
 		del lines[i]
