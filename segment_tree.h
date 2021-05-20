@@ -13,18 +13,14 @@ struct Fenwick {
 	void add(int i, T x) {
 		for(; i < (int) v.size(); i += LSB(i)) v[i] += x;
 	}
-	void set(int i, T x) {
-		add(i, x - querry(i, i));
-	}
+	void set(int i, T x) { add(i, x - querry(i, i)); }
 
 	T querry(int i) {
 		T ans = 0;
 		for(; i > 0; i -= LSB(i)) ans += v[i];
 		return ans;
 	}
-	T querry(int a, int b) {
-		return querry(b) - querry(a-1);
-	}
+	T querry(int a, int b) { return querry(b) - querry(a-1); }
 };
 
 template<typename T>
@@ -40,9 +36,10 @@ struct SegmentTree {
 	}
 
 	void set(int i, T x) {
-		v[start+i] = x;
+		v[i+=start] = x;
 		while((i >>= 1) > 0) v[i] = op(v[i<<1], v[(i<<1)+1]);
 	}
+	void add(int i, T x) { set(i, v[start+i]+x); }
 
 	T querry(int a, int b) {
 		T xa = e, xb = e;
