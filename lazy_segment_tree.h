@@ -34,6 +34,7 @@ struct LazySegmentTree {
 	}
 
 	void init() {
+		lazy.assign(start << 1, 0);
 		for(int i = start-1; i > 0; --i)
 			v[i] = op(v[i<<1], v[(i<<1)+1]);
 	}
@@ -93,5 +94,5 @@ struct LazySegmentTree {
 		}
 		return v[i];
 	}
-	int querryAll() { push(1, start); return v[1]; }
+	T querryAll() { push(1, start); return v[1]; }
 };
