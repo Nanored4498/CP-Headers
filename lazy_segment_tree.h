@@ -9,28 +9,14 @@ using namespace std;
 //    op(a,b) = min(a, b)   pow_op(a, n) = a
 template<typename T>
 struct LazySegmentTree {
-	const function<T(T, T)> &op;
-	const function<T(T, int)> &pow_op;
-	const T e;
-	vector<T> v, lazy;
+	vector<T> v;
 	int start;
-	int _a, _b;
 
 	LazySegmentTree(int n, const function<T(T, T)> &op, const function<T(T, int)> &pow_op, T e):
 		op(op), pow_op(pow_op), e(e), start(1) {
 		while(start < n) start <<= 1;
 		v.assign(start << 1, e);
 		lazy.assign(start << 1, 0);
-	}
-
-	void push(int i, int size) {
-		if(lazy[i] == 0) return;
-		v[i] += pow_op(lazy[i], size);
-		if(i < start) {
-			lazy[i<<1] += lazy[i];
-			lazy[(i<<1)+1] += lazy[i];
-		}
-		lazy[i] = 0;
 	}
 
 	void init() {
@@ -95,4 +81,21 @@ struct LazySegmentTree {
 		return v[i];
 	}
 	T querryAll() { push(1, start); return v[1]; }
+
+private:
+	const function<T(T, T)> &op;
+	const function<T(T, int)> &pow_op;
+	const T e;
+	vector<T> lazy;
+	int _a, _b;
+
+	void push(int i, int size) {
+		if(lazy[i] == 0) return;
+		v[i] += pow_op(lazy[i], size);
+		if(i < start) {
+			lazy[i<<1] += lazy[i];
+			lazy[(i<<1)+1] += lazy[i];
+		}
+		lazy[i] = 0;
+	}
 };
