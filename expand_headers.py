@@ -18,12 +18,12 @@ inf.close()
 
 includes = []
 usings = []
-typedefs = []
+typedefs = set()
 local = set()
 
 i = 0
 while i < len(lines):
-	if i > 0 and lines[i] == '\n' and lines[i-1] == "\n":
+	if i > 0 and lines[i] == '\n' and lines[i-1] == '\n':
 		del lines[i]
 	elif lines[i].startswith("#include <"):
 		includes.append(' '.join(lines[i].split()) + '\n')
@@ -42,15 +42,18 @@ while i < len(lines):
 		usings.append(' '.join(lines[i].split()) + '\n')
 		del lines[i]
 	elif lines[i].startswith("typedef "):
-		typedefs.append(' '.join(lines[i].split()) + '\n')
-		del lines[i]
+		td = ' '.join(lines[i].split())
+		if td in typedefs: del lines[i]
+		else:
+			typedefs.add(td)
+			i += 1
 	else: i += 1
 
 file_header = list(set(includes))
 if len(file_header) > 0: file_header.append("\n")
 file_header += list(set(usings))
-if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
-file_header += list(set(typedefs))
+# if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
+# file_header += list(set(typedefs))
 if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
 
 if len(file_header) > 0 and file_header[-1] == "\n" and len(lines) > 0 and lines[0] == "\n": file_header = file_header[:-1]
