@@ -8,7 +8,15 @@ struct Fenwick {
 	#define LSB(i) (i)&(-(i))
 	vector<T> v;
 
+	Fenwick() = default;
 	Fenwick(int n): v(n+1, 0) {}
+
+	void init() {
+		int j;
+		for(int i = 1; i < (int) v.size(); ++i)
+			if((j = i + LSB(i)) < (int) v.size())
+				v[j] += v[i];
+	}
 
 	void add(int i, T x) {
 		for(; i < (int) v.size(); i += LSB(i)) v[i] += x;
