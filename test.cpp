@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "sat2.h"
+#include "flow.h"
 
 using namespace std;
 
@@ -25,6 +26,17 @@ int main() {
 		for(bool b : sat.values) cout << b << ' ';
 		cout << endl;
 	} else cout << "IMPOSSIBLE" << endl;
+
+	FlowCapScaling<int> maxFlow(6);
+	maxFlow.addEdge(0, 1, 5);
+	maxFlow.addEdge(0, 3, 4);
+	maxFlow.addEdge(1, 2, 6);
+	maxFlow.addEdge(2, 4, 8);
+	maxFlow.addEdge(2, 5, 5);
+	maxFlow.addEdge(3, 1, 3);
+	maxFlow.addEdge(3, 4, 1);
+	maxFlow.addEdge(4, 5, 2);
+	cout << maxFlow.maxFlow(0, 5) << endl;
 
 	return 0;
 }
