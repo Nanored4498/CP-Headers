@@ -3,12 +3,34 @@
 
 using namespace std;
 
+template <typename T>
+T computeG() {
+	vector<int> ps;
+	int m2 = T::mod-1;
+	for(int p = 2; p <= m2; ++p) if(m2 % p == 0) {
+		ps.push_back(p);
+		while(m2 % p == 0) m2 /= p;
+	}
+	T G = 2;
+	m2 = T::mod-1;
+	while(true) {
+		bool good = true;
+		for(int p : ps) if(pow(G, m2/p) == 1) {
+			good = false;
+			break;
+		}
+		if(good) return G;
+		else ++G;
+	}
+	return G;
+}
+
 // Need to compute a genrator g of T before
 template <typename T>
-void NTT(vector<T> &P, bool invert=false) {
+void NTT(vector<T> &P, T g, bool invert=false) {
 	int n = P.size();
 	assert((T::mod-1) % n == 0);
-	T g = pow(T::g, (T::mod-1) / n);
+	g = pow(g, (T::mod-1) / n);
 	if(invert) g = inv(g);
 
 	// swap indices with their mirror binary
@@ -44,14 +66,14 @@ void NTT(vector<T> &P, bool invert=false) {
 }
 
 template <typename T>
-void NTT_mult_inplace(vector<T> &P, vector<T> &Q) {
+void NTT_mult_inplace(vector<T> &P, vector<T> &Q, T g) {
 	int size = 1, n = P.size() + Q.size() - 1;
 	while(size < n) size <<= 1;
 	P.resize(size, 0);
 	Q.resize(size, 0);
-	NTT<T>(P);
-	NTT<T>(Q);
+	NTT<T>(P, g);
+	NTT<T>(Q, g);
 	for(int i = 0; i < size; ++i) P[i] *= Q[i];
-	NTT<T>(P, true);
+	NTT<T>(P, g, true);
 	P.resize(n);
 }

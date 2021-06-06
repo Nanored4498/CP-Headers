@@ -39,28 +39,4 @@ struct mint {
 	friend mint operator-(mint a, const mint &b) { return a -= b; }
 	friend mint operator*(mint a, const mint &b) { return a *= b; }
 	friend mint operator/(mint a, const mint &b) { return a /= b; }
-
-	// use as follow after defining mi as mint<MOD>
-	// template<> mi mi::g = mi::computeG();
-	// usefull for NTT
-	static mint g;
-	static mint computeG() {
-		vector<int> ps;
-		int m2 = mod-1;
-		for(int p = 2; p <= m2; ++p) if(m2 % p == 0) {
-			ps.push_back(p);
-			while(m2 % p == 0) m2 /= p;
-		}
-		mint G = 2;
-		m2 = mod-1;
-		while(true) {
-			bool good = true;
-			for(int p : ps) if(pow(G, m2/p) == 1) {
-				good = false;
-				break;
-			}
-			if(good) return G;
-			else ++G;
-		}
-	}
 };
