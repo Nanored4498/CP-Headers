@@ -6,6 +6,8 @@ struct Point {
 
 	Point operator+(const Point &p) { return {x+p.x, y+p.y}; }
 	Point operator-(const Point &p) { return {x-p.x, y-p.y}; }
+	Point operator+=(const Point &p) { x += p.x; y += p.y; return *this; }
+	Point operator-=(const Point &p) { x -= p.x; y -= p.y; return *this; }
 	Point operator*(T a) { return {x*a, y*a}; }
 	Point operator/(T a) { return {x/a, y/a}; }
 	Point& operator*=(T a) { x *= a; y *= a; return *this; }

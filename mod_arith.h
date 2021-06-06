@@ -24,6 +24,8 @@ struct mint {
 	explicit operator int() const { return x; }
 	friend bool operator==(const mint &a, const mint &b) { return a.x == b.x; }
 	friend bool operator!=(const mint &a, const mint &b) { return a.x != b.x; }
+	friend bool operator<=(const mint &a, const mint &b) { return a.x <= b.x; }
+	friend bool operator<(const mint &a, const mint &b) { return a.x < b.x; }
 	friend ostream& operator<<(ostream &stream, const mint &v) { return stream << v.x; }
 	friend istream& operator>>(istream &stream, mint &v) { return stream >> v.x; }
 	mint& operator+=(const mint &b) { if((x += b.x) >= mod) x -= mod; return *this; }
