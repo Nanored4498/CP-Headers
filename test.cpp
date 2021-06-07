@@ -2,9 +2,8 @@
 
 #include "sat2.h"
 #include "flow.h"
-#include "kmp.h"
-#include "aho_corasick.h"
 #include "pattern_2d.h"
+#include "chinese.h"
 
 using namespace std;
 
@@ -75,6 +74,16 @@ int main() {
 	BakerBird bb(pattern2D);
 	for(auto [i, j] : bb.matches(search2D)) cout << i << ',' << j << ' ';
 	cout << endl;
+
+	{
+	vector<int> a = {3, 4, 2}, m = {5, 7, 3};
+	cout << chineseRM(a, m) << ' ';
+	a[1] = 18, a[2] = 5;
+	m[0] = 10; m[1] = 35; m[2] = 6;
+	cout << chineseRM(a, m) << ' ';
+	a[1] = 21;
+	cout << chineseRM(a, m) << endl;
+	}
 
 	return 0;
 }
