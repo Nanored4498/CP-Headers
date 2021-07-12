@@ -10,8 +10,8 @@ struct mint {
 	int x;
 	mint(): x(0) {}
 	mint(ll v) {
-		x = v % MOD;
-		if(x < 0) x += MOD;
+		x = v % mod;
+		if(x < 0) x += mod;
 	}
 
 	friend mint pow(mint a, ll p) {
