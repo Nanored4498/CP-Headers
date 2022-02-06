@@ -7,8 +7,8 @@ typedef pair<int, int> pii;
 template<typename S>
 struct BakerBird {
 	BakerBird(const vector<S> &p): X(p.size()), Y(p[0].size()), aho(p), kmp() {
-		kmp.p.resize(p.size());
-		for(int i = 0; i < p.size(); ++i)
+		kmp.p.resize(X);
+		for(int i = 0; i < X; ++i)
 			kmp.p[i] = aho.states(p[i]).back();
 		kmp.init();
 	}

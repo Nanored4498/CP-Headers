@@ -4,8 +4,10 @@
 #include "flow.h"
 #include "pattern_2d.h"
 #include "chinese.h"
+#include "prime.h"
 
 using namespace std;
+typedef long long ll;
 
 int main() {
 	SAT2 sat(4);
@@ -83,6 +85,11 @@ int main() {
 	cout << chineseRM(a, m) << ' ';
 	a[1] = 21;
 	cout << chineseRM(a, m) << endl;
+	}
+
+	{
+	vector<pair<ll, bool>> ps {{299210837LL, true}, {193LL*407521LL, false}, {1795265047LL, true}, {9780517LL*45077531LL, false}};
+	for(const auto &[x, a] : ps) if(isPrime(x) != a) cout << "Prime Error " << x << ' ' << a << ' ' << isPrime(x) << endl;
 	}
 
 	return 0;
