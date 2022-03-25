@@ -32,6 +32,7 @@ struct mint {
 	mint& operator-=(const mint &b) { if((x -= b.x) < 0) x += mod; return *this; }
 	mint& operator*=(const mint &b) { x = (1LL * x * b.x) % mod; return *this; }
 	mint& operator/=(const mint &b) { return (*this) *= inv(b); }
+	mint& operator%=(const mint &b) { x %= b.x; return *this; }
 	mint& operator++() { return (*this) += 1; }
 	mint& operator--() { return (*this) -= 1; }
 	mint operator-() { return -x; }
