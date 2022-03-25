@@ -13,7 +13,10 @@ bool isPrime(T x) {
 		if(b == 1) continue;
 		bool composite = true;
 		for(int r = 0; r < s; ++r, b = (u128)b*b % x)
-			if(b == x-1) composite = false;
+			if(b == x-1) {
+				composite = false;
+				break;
+			}
     	if(composite) return false;
 	}
 	return true;

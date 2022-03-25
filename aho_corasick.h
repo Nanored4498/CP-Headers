@@ -8,8 +8,10 @@ template<typename S>
 struct AhoCorasick {
 	typedef typename S::value_type T;
 	vector<vector<int>> ends;
+	vector<int> back;
 
-	AhoCorasick(const vector<S> &ps, bool everyEnds = false): ends(1), _next(1), _back(1, -1) {
+	AhoCorasick() = default;
+	AhoCorasick(const vector<S> &ps, bool everyEnds = false): ends(1), _next(1) {
 		for(int i = 0; i < ps.size(); ++i) {
 			int n = 0;
 			for(T x : ps[i]) {
@@ -17,28 +19,25 @@ struct AhoCorasick {
 					_next[n][x] = _next.size();
 					ends.emplace_back();
 					_next.emplace_back();
-					_back.push_back(-1);
 				}
 				n = _next[n][x];
 			}
 			ends[n].push_back(i);
 		}
-		queue<int> Q;
-		Q.push(0);
-		while(!Q.empty()) {
+		back.assign(_next.size(), -1);
+		for(queue<int> Q({0}); !Q.empty(); Q.pop()) {
 			int n = Q.front();
-			Q.pop();
-			if(everyEnds && _back[n] != -1)
-				ends[n].insert(ends[n].end(), ends[_back[n]].begin(), ends[_back[n]].end());
+			if(everyEnds && back[n] != -1)
+				ends[n].insert(ends[n].end(), ends[back[n]].begin(), ends[back[n]].end());
 			for(const auto [x, nn] : _next[n]) {
-				_back[nn] = next(_back[n], x);
+				back[nn] = next(back[n], x);
 				Q.push(nn);
 			}
 		}
 	}
 
 	int next(int n, T x) {
-		while(n != -1 && !_next[n].count(x)) n = _back[n];
+		while(n != -1 && !_next[n].count(x)) n = back[n];
 		return n == -1 ? 0 : _next[n][x];
 	}
 
@@ -52,5 +51,4 @@ struct AhoCorasick {
 
 private:
 	vector<unordered_map<T, int>> _next;
-	vector<int> _back;
 };
