@@ -2,10 +2,10 @@
 #include <vector>
 
 using namespace std;
-typedef long long ll;
 
 template <int MOD>
 struct mint {
+	typedef long long ll;
 	static const int mod = MOD;
 	int x;
 	mint(): x(0) {}
