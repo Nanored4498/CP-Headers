@@ -29,23 +29,23 @@ struct Fenwick {
 	T querry(int a, int b) { return querry(b) - querry(a-1); }
 };
 
-template<typename T>
+template<typename T, typename OP>
 struct SegmentTree {
-	const function<T(T, T)> &op;
+	OP op;
 	const T e;
 	vector<T> v;
 	int start;
 
-	SegmentTree(int n, const function<T(T, T)> &op, T e): op(op), e(e), start(1) {
+	SegmentTree(int n, const OP &op, const T &e): op(op), e(e), start(1) {
 		while(start < n) start <<= 1;
 		v.assign(start << 1, e);
 	}
 
-	void set(int i, T x) {
+	void set(int i, const T &x) {
 		v[i+=start] = x;
 		while((i >>= 1) > 0) v[i] = op(v[i<<1], v[(i<<1)+1]);
 	}
-	void add(int i, T x) { set(i, v[start+i]+x); }
+	void add(int i, const T &x) { set(i, v[start+i]+x); }
 
 	T querry(int a, int b) {
 		T xa = e, xb = e;
