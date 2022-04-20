@@ -6,7 +6,7 @@ template <typename T>
 struct AU {
 	vector<T> _fact, _ifact, _bernoulli;
 	
-	AU(): _fact(1, 1) {}
+	AU(): _fact(1, 1), _ifact(1, 1), _bernoulli(1, 1) {}
 
 	T fact(int n) {
 		if(n >= _fact.size()) {
@@ -35,8 +35,8 @@ struct AU {
 		if(n >= _bernoulli.size()) {
 			int i = _bernoulli.size();
 			_bernoulli.resize(n+1);
-			while(i <= n) {
-				_bernoulli[i] = 1;
+			for(;i <= n; ++i) {
+				_bernoulli[i] = 0;
 				for(int j = 0; j < i; ++j)
 					_bernoulli[i] -= C(i, j) * _bernoulli[j] / (i - j + 1);
 			}
@@ -47,9 +47,9 @@ struct AU {
 	// 0^p + 1^p + ... + N^p
 	T sumPow(T N, int p) {
 		if(p == 0) return N+1;
-		T ans = pow(N, p+1) / (p+1) + pow(N, p) / 2;
-		for(int k = 2; k <= p; ++k)
-			ans += Bernoulli(k) * fact(p) * ifact(k) * ifact(p-k+1) * pow(N, p-k+1);
-		return ans;
+		T ans = 0;
+		for(int k = 0; k <= p; ++k)
+			ans += Bernoulli(k) * C(p+1, k) * pow(N+1, p+1-k);
+		return ans / (p+1);
 	}
 };

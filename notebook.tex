@@ -1,11 +1,45 @@
-\documentclass{article}
+\documentclass[a4paper,9pt]{article}
+
+\setlength{\columnseprule}{1pt}
+\usepackage[landscape,twocolumn,columnsep=0cm,left=.5cm, right=.5cm, bottom=.5cm, top=1.6cm]{geometry}
+
 \usepackage{amsmath}
+\usepackage{color}
+
+\usepackage{fancyhdr}
+\rhead{\thepage}
+\lhead{Université de Lorraine - UL1}
+\cfoot{}
+\pagestyle{fancy}
+
+\usepackage[compact]{titlesec}
+\titleformat{\section}[hang]{\titlerule[1pt]\vspace{0.2cm}\LARGE\bfseries\color{red}}{\hspace*{0.3cm}\thesection}{0.5em}{}
+\titleformat{\subsection}[hang]{\Large\bfseries}{\hspace*{0.3cm}\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}[hang]{\large}{\hspace*{0.3cm}\thesubsubsection}{0.5em}{}
 
 
 \begin{document}
+	
+	\tableofcontents
+	
+	\section{Mathematics}
+	
 	\paragraph{Fibonacci}
 	$$ F_{n+k} = F_k F_{n+1} + F_{k-1} F_n \qquad GCD(F_m, F_n) = F_{GCD(m, n)} $$
 	Use the first equation with $k=n$ or $k=n+1$ for fast computation.
-	\paragraph{Number theory}
+	
+	\paragraph{Large Exponent}
 	$$ x^n \equiv x^{\phi(m) + \left( n \!\!\!\mod \phi(m) \right)} \mod m $$
+	
+	\paragraph{Bernoulli}
+	$$ B_0 = 1 \qquad B_{n+1} = - \sum_{i = 0}^{n} \binom{n+1}{i} \cdot \frac{B_i}{n+2-i} $$
+	$$ \sum_{i=0}^{n} i^p = \frac{1}{p+1} \sum_{j = 0}^p \binom{p+1}{j} \cdot B_j \cdot (n+1)^{p+1-j} $$
+	
+	\paragraph{Catalan number}
+	$$ C_0 = 1 \qquad C_{n+1} = \sum_{i = 0}^n C_i C_{n-i} \qquad C_n = \frac{1}{n+1} \binom{2n}{n} $$
+
+	\paragraph{Burnside's lemma}
+	$$ \left| X / G \right| = \frac{1}{|G|} \sum_{g \in G} \left| X^g \right| $$
+	$G$ acts on $X$, $x \sim y \Leftrightarrow \exists g \in G, y = gx$, ans $X^g = \{ x \mid gx = x \}$.
+
 \end{document}

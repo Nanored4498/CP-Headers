@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "sat2.h"
 #include "flow.h"
@@ -8,6 +9,9 @@
 
 using namespace std;
 typedef long long ll;
+
+double inv(double x) { return 1./x; }
+#include "arith_utils.h"
 
 int main() {
 	SAT2 sat(4);
@@ -90,6 +94,14 @@ int main() {
 	{
 	vector<pair<ll, bool>> ps {{299210837LL, true}, {193LL*407521LL, false}, {1795265047LL, true}, {9780517LL*45077531LL, false}};
 	for(const auto &[x, a] : ps) if(isPrime(x) != a) cout << "Prime Error " << x << ' ' << a << ' ' << isPrime(x) << endl;
+	}
+
+	{
+	AU<double> utils;
+	double n = 15, p = 5;
+	double snp = 0;
+	for(double i = 1; i <= n; ++i) snp += pow(i, p) + pow(i, p+1);
+	cout << utils.sumPow(n, p) + utils.sumPow(n, p+1) - snp << endl;
 	}
 
 	return 0;
