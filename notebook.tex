@@ -4,42 +4,1989 @@
 \usepackage[landscape,twocolumn,columnsep=0cm,left=.5cm, right=.5cm, bottom=.5cm, top=1.6cm]{geometry}
 
 \usepackage{amsmath}
-\usepackage{color}
+\usepackage{amssymb}
+
+\usepackage{xcolor}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0.13,0.55,0.13}
+\definecolor{colString}{rgb}{0.6,0.1,0.1}
+
+\usepackage{listingsutf8}
+\lstset{language=c++}
+\lstset{
+	float=hbp,
+	basicstyle=\ttfamily\small,
+	identifierstyle=\color{colIdentifier},
+	keywordstyle=\color{colKeys}\bfseries,
+	stringstyle=\color{colString},
+	commentstyle=\color{colComments}\itshape,
+	columns=flexible,
+	tabsize=2,
+	breaklines=true,
+	breakautoindent=true,
+	xrightmargin=0.3cm,
+	xleftmargin=0.3cm,
+	aboveskip=0cm,
+	frame=leftline,
+	rulecolor=\color{gray}
+}
 
 \usepackage{fancyhdr}
 \rhead{\thepage}
 \lhead{Université de Lorraine - UL1}
-\cfoot{}
+\cfoot{}	
 \pagestyle{fancy}
 
 \usepackage[compact]{titlesec}
 \titleformat{\section}[hang]{\titlerule[1pt]\vspace{0.2cm}\LARGE\bfseries\color{red}}{\hspace*{0.3cm}\thesection}{0.5em}{}
-\titleformat{\subsection}[hang]{\Large\bfseries}{\hspace*{0.3cm}\thesubsection}{0.5em}{}
+\titleformat{\subsection}[hang]{\large\bfseries}{\hspace*{0.3cm}\thesubsection}{0.5em}{}
 \titleformat{\subsubsection}[hang]{\large}{\hspace*{0.3cm}\thesubsubsection}{0.5em}{}
 
 
 \begin{document}
 	
-	\tableofcontents
+\tableofcontents
 	
-	\section{Mathematics}
+\section{Mathematics}
 	
-	\paragraph{Fibonacci}
-	$$ F_{n+k} = F_k F_{n+1} + F_{k-1} F_n \qquad GCD(F_m, F_n) = F_{GCD(m, n)} $$
-	Use the first equation with $k=n$ or $k=n+1$ for fast computation.
+\paragraph{Fibonacci}
+$$ F_{n+k} = F_k F_{n+1} + F_{k-1} F_n \qquad GCD(F_m, F_n) = F_{GCD(m, n)} $$
+Use the first equation with $k=n$ or $k=n+1$ for fast computation.
 	
-	\paragraph{Large Exponent}
-	$$ x^n \equiv x^{\phi(m) + \left( n \!\!\!\mod \phi(m) \right)} \mod m $$
-	
-	\paragraph{Bernoulli}
-	$$ B_0 = 1 \qquad B_{n+1} = - \sum_{i = 0}^{n} \binom{n+1}{i} \cdot \frac{B_i}{n+2-i} $$
-	$$ \sum_{i=0}^{n} i^p = \frac{1}{p+1} \sum_{j = 0}^p \binom{p+1}{j} \cdot B_j \cdot (n+1)^{p+1-j} $$
-	
-	\paragraph{Catalan number}
-	$$ C_0 = 1 \qquad C_{n+1} = \sum_{i = 0}^n C_i C_{n-i} \qquad C_n = \frac{1}{n+1} \binom{2n}{n} $$
+\paragraph{Large Exponent}
+$$ x^n \equiv x^{\phi(m) + \left( n \!\!\!\mod \phi(m) \right)} \mod m $$
 
-	\paragraph{Burnside's lemma}
-	$$ \left| X / G \right| = \frac{1}{|G|} \sum_{g \in G} \left| X^g \right| $$
-	$G$ acts on $X$, $x \sim y \Leftrightarrow \exists g \in G, y = gx$, ans $X^g = \{ x \mid gx = x \}$.
+\paragraph{Bernoulli}
+$$ B_0 = 1 \qquad B_{n+1} = - \sum_{i = 0}^{n} \binom{n+1}{i} \cdot \frac{B_i}{n+2-i} $$
+$$ \sum_{i=0}^{n} i^p = \frac{1}{p+1} \sum_{j = 0}^p \binom{p+1}{j} \cdot B_j \cdot (n+1)^{p+1-j} $$
+	
+\paragraph{Catalan number}
+$$ C_0 = 1 \qquad C_{n+1} = \sum_{i = 0}^n C_i C_{n-i} \qquad C_n = \frac{1}{n+1} \binom{2n}{n} $$
+
+\paragraph{Burnside's lemma}
+$$ \left| X / G \right| = \frac{1}{|G|} \sum_{g \in G} \left| X^g \right| $$
+$G$ acts on $X$, $x \sim y \Leftrightarrow \exists g \in G, y = gx$, ans $X^g = \{ x \mid gx = x \}$.
+
+\paragraph{Mobius function}
+
+$$ \mu(n) = \left \{ \begin{array}{ll}
+	0 & n \text{ is not square free} \\
+	1 & n \text{ has even number of prime factors} \\
+	-1 & n \text{ has odd number of prime factors}
+\end{array} \right. $$
+$$ g(n) = \sum_{d \mid n} f(d) \Leftrightarrow f(n) = \sum_{d \mid n} \mu(d) g(n/d) $$
+$$ g(n) = \sum_{m = 1}^n f \left( \left\lceil \frac{n}{m} \right\rceil \right) \Leftrightarrow f(n) = \sum_{m = 1}^n \mu(m) g \left( \left\lceil \frac{n}{m} \right\rceil \right) $$
+
+\paragraph{Number of labeled unrooted trees} $n^{n-2}$. With degree $d_i \Rightarrow (n-2)!/\left( (d_1-1)! \cdots (d_n-1)! \right)$
+
+\paragraph{Games}
+
+For a game where last to move wins and first to can't play lose on a graph $G=(V,E)$, then we define $G(x) = mex \left( \left\{ G(y) \mid (x, y) \in E \right\} \right)$ where $mex \left( S \right) = \min \left\{ n \geqslant 0 \mid n \not \in S \right\}$ and losing states $x$ verify $G(x)=0$. \\
+When playing on two graph $G$ and $G'$. If a player can make only one move the new grundy number is $G''(x, x') = G(x) \oplus G'(x')$. \\
+When playing on many graph. If a player can play on a non empty subset of graphs, a position is losing if all positions are losing. If the player can't play on all games a position is losing if all grundy numbers are the same. If the player is forced to play on all games if lose if one game is losing.` \\
+
+\subsection{Chinese remainders}
+
+\begin{lstlisting}
+template <typename T>
+T xGCD(T a, T b, T &u, T &v) {
+	if(b == 0) {
+		u = 1;
+		v = 0;
+		return a;
+	}
+	int u2, v2, g = xGCD(b, a%b, u2, v2);
+	u = v2;
+	v = u2 - v2 * (a/b);
+	return g;
+}
+
+// return x s.t. x % m[i] = a[i]
+template <typename T>
+T chineseRM(vector<T> &a, vector<T> &m) {
+	assert(a.size() == m.size());
+	if(a.empty()) return 0;
+	T b = a[0], n = m[0];
+	for(int i = 1; i < a.size(); ++i) {
+		T u, v, g = xGCD(m[i], n, u, v);
+		T rg = b % g;
+		if((a[i] % g) != rg) return -1;
+		n /= g;
+		b = u * (m[i] / g) * (b - rg) + v  * n * (a[i] - rg) + rg;
+		n *= m[i];
+		b %= n;
+		if(b < 0) b += n;
+	}
+	return b;
+}
+\end{lstlisting}
+
+\subsection{Linear Diophantine equation}
+
+\begin{lstlisting}
+// Computes b such that ab = 1 (mod n), returns -1 on failure
+int invMod(int a, int n) {
+	int x, y;
+	if(xGCD(a, n, x, y) > 1) return -1;
+	return x >= 0 ? x : x+n;
+}
+
+// Computes x and y such that ax + by = c; on failure, x = y =-1
+void linear_diophantine(int a, int b, int c, int &x, int &y) {
+	int d = gcd(a,b);
+	if (c%d) x = y = -1;
+	else {
+		x = c/d * invMod(a/d, b/d);
+		y = (c-a*x)/b;
+	}
+}
+\end{lstlisting}
+
+\subsection{Primality}
+
+\begin{lstlisting}
+template<typename T>
+bool isPrime(T x) {
+	typedef __uint128_t u128;
+	if(x < 2) return false;
+	int s = 0;
+	T d = x-1;
+	for(; !(d&1); d >>= 1) ++s;
+	for(T a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
+		if(x == a) return true;
+		T b = 1;
+		for(T e = d; e; e >>= 1, a = (u128)a*a % x)
+		if(e&1) b = (u128)b*a % x;
+		if(b == 1) continue;
+		bool composite = true;
+		for(int r = 0; r < s; ++r, b = (u128)b*b % x)
+		if(b == x-1) {
+			composite = false;
+			break;
+		}
+		if(composite) return false;
+	}
+	return true;
+}
+\end{lstlisting}
+
+\subsection{Continued Fraction}
+
+\begin{lstlisting}
+typedef double d; // for N~=1e7 ; long double for N~=1e9
+pair<ll, ll> approximate(d x, ll N) {
+	ll LP = 0, LQ = 1, P = 1, Q = 0, inf = LLONG_MAX; d y = x;
+	for (;;) {
+		ll lim = min(P ? (N-LP) / P : inf, Q ? (N-LQ) / Q : inf),
+		a = (ll)floor(y), b = min(a, lim),
+		NP = b*P + LP, NQ = b*Q + LQ;
+		if (a > b) {
+			// If b > a/2, we have a semi-convergent that gives us a
+			// better approximation ; if b = a/2, we *may* have one.
+			// Return {P, Q} here for a more canonical approximation.
+			return (abs(x - (d)NP / (d)NQ) < abs(x - (d)P / (d)Q)) ?
+			make_pair(NP, NQ) : make_pair(P, Q);
+		}
+		if (abs(y = 1/(y - (d)a)) > 3*N) {
+			return {NP, NQ};
+		}
+		LP = P; P = NP;
+		LQ = Q; Q = NQ;
+	}
+}
+\end{lstlisting}
+
+\subsection{NTT (can be adapted to FFT)}
+
+$962592769$ is a nice modulo as $2^{21} \mid (962592769-1)$.
+\begin{lstlisting}
+template <typename T>
+T computeG() {
+	vector<int> ps;
+	int m2 = T::mod-1;
+	for(int p = 2; p <= m2; ++p) if(m2 % p == 0) {
+		ps.push_back(p);
+		while(m2 % p == 0) m2 /= p;
+	}
+	T G = 2;
+	m2 = T::mod-1;
+	while(true) {
+		bool good = true;
+		for(int p : ps) if(pow(G, m2/p) == 1) {
+			good = false;
+			break;
+		}
+		if(good) return G;
+		else ++G;
+	}
+	return G;
+}
+
+// Need to compute a genrator g of T before
+template <typename T>
+void NTT(vector<T> &P, T g, bool invert=false) {
+	int n = P.size();
+	assert((T::mod-1) % n == 0);
+	g = pow(g, (T::mod-1) / n);
+	if(invert) g = inv(g);
+	
+	// swap indices with their mirror binary
+	for(int i = 1, j = 0; i < n; ++i) {
+		int bit = n >> 1;
+		for(; j&bit; bit >>= 1) j ^= bit;
+		j ^= bit;
+		if(i < j) swap(P[i], P[j]);
+	}
+	
+	// Transform
+	for(int len = 2; len <= n; len <<= 1) {
+		int half = len >> 1;
+		T wl = g;
+		for(int i = len; i < n; i <<= 1) wl *= wl;
+		for(int i = 0; i < n; i += len) {
+			T w = 1;
+			for(int j = 0; j < half; ++j) {
+				T even = P[i+j];
+				T odd = P[i+half+j] * w;
+				P[i+j] = even + odd;
+				P[i+half+j] = even - odd;
+				w *= wl;
+			}
+		}
+	}
+
+	// Divide by n if inverse
+	if(invert) {
+		T inv_n = inv(T(n));
+		for(T &x : P) x *= inv_n;
+	}
+}
+
+template <typename T>
+void NTT_mult_inplace(vector<T> &P, vector<T> &Q, T g) {
+	int size = 1, n = P.size() + Q.size() - 1;
+	while(size < n) size <<= 1;
+	P.resize(size, 0);
+	Q.resize(size, 0);
+	NTT<T>(P, g);
+	NTT<T>(Q, g);
+	for(int i = 0; i < size; ++i) P[i] *= Q[i];
+	NTT<T>(P, g, true);
+	P.resize(n);
+}
+\end{lstlisting}
+
+\subsection{Linear Recurrence}
+
+Compute $S_k$ where $S_i = \sum_j S_{i-j-1} tr_j$ in $\mathcal{O}(n^2 \log(k))$.
+\begin{lstlisting}
+typedef vector<ll> Poly;
+ll linearRec(Poly S, Poly tr, ll k) {
+	int n = sz(tr);
+	auto combine = [&](Poly a, Poly b) {
+		Poly res(n * 2 + 1);
+		rep(i,0,n+1) rep(j,0,n+1)
+		res[i + j] = (res[i + j] + a[i] * b[j]) % mod;
+		for (int i = 2 * n; i > n; --i) rep(j,0,n)
+		res[i - 1 - j] = (res[i - 1 - j] + res[i] * tr[j]) % mod;
+		res.resize(n + 1);
+		return res;
+	};
+	Poly pol(n + 1), e(pol);
+	pol[0] = e[1] = 1;
+	for (++k; k; k /= 2) {
+		if (k % 2) pol = combine(pol, e);
+		e = combine(e, e);
+	}
+	ll res = 0;
+	rep(i,0,n) res = (res + pol[i + 1] * S[i]) % mod;
+	return res;
+}
+\end{lstlisting}
+
+\subsection{Simplex}
+
+$$ \max_x c^T x \quad \text{s.t. } Ax \leqslant b \text{ and } x \geqslant 0 $$
+\begin{lstlisting}
+const T eps = 1e-8, inf = 1/.0;
+#define MP make_pair
+#define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
+
+struct LPSolver {
+	int m, n;
+	vi N, B;
+	vvd D;
+	LPSolver(const vvd& A, const vd& b, const vd& c) :
+	m(sz(b)), n(sz(c)), N(n+1), B(m), D(m+2, vd(n+2)) {
+		rep(i,0,m) rep(j,0,n) D[i][j] = A[i][j];
+		rep(i,0,m) { B[i] = n+i; D[i][n] = -1; D[i][n+1] = b[i];}
+		rep(j,0,n) { N[j] = j; D[m][j] = -c[j]; }
+		N[n] = -1; D[m+1][n] = 1;
+	}
+	void pivot(int r, int s) {
+		T *a = D[r].data(), inv = 1 / a[s];
+		rep(i,0,m+2) if (i != r && abs(D[i][s]) > eps) {
+			T *b = D[i].data(), inv2 = b[s] * inv;
+			rep(j,0,n+2) b[j] -= a[j] * inv2;
+			b[s] = a[s] * inv2;
+		}
+		rep(j,0,n+2) if (j != s) D[r][j] *= inv;
+		rep(i,0,m+2) if (i != r) D[i][s] *= -inv;
+		D[r][s] = inv;
+		swap(B[r], N[s]);
+	}
+	bool simplex(int phase) {
+		int x = m + phase - 1;
+		for (;;) {
+			int s = -1;
+			rep(j,0,n+1) if (N[j] != -phase) ltj(D[x]);
+			if (D[x][s] >= -eps) return true;
+			int r = -1;
+			rep(i,0,m) {
+				if (D[i][s] <= eps) continue;
+				if (r == -1 || MP(D[i][n+1] / D[i][s], B[i])
+				< MP(D[r][n+1] / D[r][s], B[r])) r = i;
+			}
+			if (r == -1) return false;
+			pivot(r, s);
+		}
+	}
+	T solve(vd &x) {
+		int r = 0;
+		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
+		if (D[r][n+1] < -eps) {
+			pivot(r, n);
+			if (!simplex(2) || D[m+1][n+1] < -eps) return -inf;
+			rep(i,0,m) if (B[i] == -1) {
+				int s = 0;
+				rep(j,1,n+1) ltj(D[i]);
+				pivot(i, s);
+			}
+		}
+		bool ok = simplex(1); x = vd(n);
+		rep(i,0,m) if (B[i] < n) x[B[i]] = D[i][n+1];
+		return ok ? D[m][n+1] : inf;
+	}
+};
+\end{lstlisting}
+
+\subsection{Matrix}
+
+\subsubsection{Determinant}
+
+\begin{lstlisting}
+// O(n^3)
+double det(vector<vector<double>>& a) {
+	int n = sz(a); double res = 1;
+	rep(i,0,n) {
+		int b = i;
+		rep(j,i+1,n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
+		if (i != b) swap(a[i], a[b]), res *= -1;
+		res *= a[i][i];
+		if (res == 0) return 0;
+		rep(j,i+1,n) {
+			double v = a[j][i] / a[i][i];
+			if (v != 0) rep(k,i+1,n) a[j][k] -= v * a[i][k];
+		}
+	}
+	return res;
+}
+
+const ll mod = 12345;
+ll det(vector<vector<ll>>& a) {
+	int n = sz(a); ll ans = 1;
+	rep(i,0,n) {
+		rep(j,i+1,n) {
+			while (a[j][i] != 0) { // gcd step
+				ll t = a[i][i] / a[j][i];
+				if (t) rep(k,i,n)
+				a[i][k] = (a[i][k] - a[j][k] * t) % mod;
+				swap(a[i], a[j]);
+				ans *= -1;
+			}
+		}
+		ans = ans * a[i][i] % mod;
+		if (!ans) return 0;
+	}
+	return (ans + mod) % mod;
+}
+\end{lstlisting}
+
+\subsubsection{Solver}
+
+\paragraph{Real} Complexity $\mathcal{O}(n^2m)$.
+\begin{lstlisting}
+typedef vector<double> vd;
+const double eps = 1e-12;
+int solveLinear(vector<vd>& A, vd& b, vd& x) {
+	int n = A.size(), m = x.size(), rank = 0, br, bc;
+	if(n) assert(A[0].size() == m);
+	vi col(m); iota(col.begin(), col.end(), 0);
+	rep(i,0,n) {
+		double v, bv = 0;
+		rep(r,i,n) rep(c,i,m)
+		if ((v = fabs(A[r][c])) > bv)
+		br = r, bc = c, bv = v;
+		if (bv <= eps) {
+			rep(j,i,n) if (fabs(b[j]) > eps) return -1;
+			break;
+		}
+		swap(A[i], A[br]);
+		swap(b[i], b[br]);
+		swap(col[i], col[bc]);
+		rep(j,0,n) swap(A[j][i], A[j][bc]);
+		bv = 1/A[i][i];
+		rep(j,i+1,n) {
+			double fac = A[j][i] * bv;
+			b[j] -= fac * b[i];
+			rep(k,i+1,m) A[j][k] -= fac*A[i][k];
+		}
+		rank++;
+	}
+	x.assign(m, 0);
+	for (int i = rank; i--;) {
+		b[i] /= A[i][i];
+		x[col[i]] = b[i];
+		rep(j,0,i) b[j] -= A[j][i] * b[i];
+	}
+	return rank; // ( multiple solutions i f rank < m)
+}
+\end{lstlisting}
+
+\paragraph{Binary} Complexity $\mathcal{O}(n^2m)$.
+
+\begin{lstlisting}
+typedef bitset<1000> bs;
+int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
+	int n = sz(A), rank = 0, br;
+	assert(m <= sz(x));
+	vi col(m); iota(all(col), 0);
+	rep(i,0,n) {
+		for (br=i; br<n; ++br) if (A[br].any()) break;
+		if (br == n) {
+			rep(j,i,n) if(b[j]) return -1;
+			break;
+		}
+		int bc = (int)A[br]._Find_next(i-1);
+		swap(A[i], A[br]);
+		swap(b[i], b[br]);
+		swap(col[i], col[bc]);
+		rep(j,0,n) if (A[j][i] != A[j][bc]) {
+			A[j].flip(i); A[j].flip(bc);
+		}
+		rep(j,i+1,n) if (A[j][i]) {
+			b[j] ^= b[i];
+			A[j] ^= A[i];
+		}
+		rank++;
+	}
+	x = bs();
+	for (int i = rank; i--;) {
+		if (!b[i]) continue;
+		x[col[i]] = 1;
+		rep(j,0,i) b[j] ^= A[j][i];
+	}
+	return rank; // ( multiple solutions i f rank < m)
+}
+\end{lstlisting}
+
+\paragraph{Tridiagonal} Complexity $\mathcal{O}(n)$.
+
+\begin{lstlisting}
+typedef double T;
+vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
+const vector<T>& sub, vector<T> b) {
+	int n = sz(b); vi tr(n);
+	rep(i,0,n-1) {
+		if (abs(diag[i]) < 1e-9 * abs(super[i])) { // diag [ i ] == 0
+			b[i+1] -= b[i] * diag[i+1] / super[i];
+			if (i+2 < n) b[i+2] -= b[i] * sub[i+1] / super[i];
+			diag[i+1] = sub[i]; tr[++i] = 1;
+		} else {
+			diag[i+1] -= super[i]*sub[i]/diag[i];
+			b[i+1] -= b[i]*sub[i]/diag[i];
+		}
+	}
+	for (int i = n; i--;) {
+		if (tr[i]) {
+			swap(b[i], b[i-1]);
+			diag[i-1] = diag[i];
+			b[i] /= super[i-1];
+		} else {
+			b[i] /= diag[i];
+			if (i) b[i-1] -= b[i]*super[i-1];
+		}
+	}
+	return b;
+}
+\end{lstlisting}
+
+\subsubsection{Inverse}
+
+\begin{lstlisting}
+int matInv(vector<vector<double>>& A) {
+	int n = sz(A); vi col(n);
+	vector<vector<double>> tmp(n, vector<double>(n));
+	rep(i,0,n) tmp[i][i] = 1, col[i] = i;
+	rep(i,0,n) {
+		int r = i, c = i;
+		rep(j,i,n) rep(k,i,n)
+		if (fabs(A[j][k]) > fabs(A[r][c]))
+		r = j, c = k;
+		if (fabs(A[r][c]) < 1e-12) return i;
+		A[i].swap(A[r]); tmp[i].swap(tmp[r]);
+		rep(j,0,n)
+		swap(A[j][i], A[j][c]), swap(tmp[j][i], tmp[j][c]);
+		swap(col[i], col[c]);
+		double v = A[i][i];
+		rep(j,i+1,n) {
+			double f = A[j][i] / v;
+			A[j][i] = 0;
+			rep(k,i+1,n) A[j][k] -= f*A[i][k];
+			rep(k,0,n) tmp[j][k] -= f*tmp[i][k];
+		}
+		rep(j,i+1,n) A[i][j] /= v;
+		rep(j,0,n) tmp[i][j] /= v;
+		A[i][i] = 1;
+	}
+	for (int i = n-1; i > 0; --i) rep(j,0,i) {
+		double v = A[j][i];
+		rep(k,0,n) tmp[j][k] -= v*tmp[i][k];
+	}
+	rep(i,0,n) rep(j,0,n) A[col[i]][col[j]] = tmp[i][j];
+	return n;
+}
+\end{lstlisting}
+
+\section{Structure}
+	
+\subsection{Segment Tree}
+	
+\begin{lstlisting}
+template<typename T, typename OP>
+struct SegmentTree {
+	OP op;
+	const T e;
+	vector<T> v;
+	int start;
+	SegmentTree(int n, const OP &op, const T &e): op(op), e(e), start(1) {
+		while(start < n) start <<= 1;
+		v.assign(start << 1, e);
+	}
+	
+	void set(int i, const T &x) {
+		v[i+=start] = x;
+		while((i >>= 1) > 0) v[i] = op(v[i<<1], v[(i<<1)+1]);
+	}
+	void add(int i, const T &x) { set(i, v[start+i]+x); }
+	
+	T querry(int a, int b) {
+		T xa = e, xb = e;
+		for(a += start, b += start; a <= b; a >>= 1, b >>= 1) {
+			if(a&1) xa = op(xa, v[a++]);
+			if(!(b&1)) xb = op(v[b--], xb);
+		}
+		return op(xa, xb);
+	}
+};
+\end{lstlisting}
+
+\subsubsection{Fenwick Tree}
+	
+\begin{lstlisting}
+template<typename T>
+struct Fenwick {
+	#define LSB(i) ((i)&(-(i)))
+	vector<T> v;
+	Fenwick() = default;
+	Fenwick(int n): v(n+1, 0) {}
+	
+	void init() {
+		for(int i = 1; i < (int) v.size(); ++i) v[i] += v[i-1];
+		for(int i = v.size()-1; i > 0; --i) v[i] -= v[i-LSB(i)];
+	}
+	
+	void add(int i, T x) {
+		for(; i < (int) v.size(); i += LSB(i)) v[i] += x;
+	}
+	void set(int i, T x) { add(i, x - querry(i, i)); }
+	
+	T querry(int i) {
+		T ans = 0;
+		for(; i > 0; i -= LSB(i)) ans += v[i];
+		return ans;
+	}
+	T querry(int a, int b) { return querry(b) - querry(a-1); }
+};
+\end{lstlisting}
+
+\subsubsection{Lazy Segment Tree}
+
+\begin{lstlisting}
+// For this structure op(x_1+a, op(x_2+a, op(..., x_n+a))) = op(x_1, op(x_2, op(..., x_n))) + pow_op(a, n)
+// exemple:
+//    op(a, b) = a+b        pow_op(a, n) = a*n
+//    op(a,b) = min(a, b)   pow_op(a, n) = a
+template<typename T, typename OP, typename POP>
+struct LazySegmentTree {
+	int start;
+	LazySegmentTree(int n, const OP &_op, const POP &pow_op, T e):
+	start(1), op(_op), pow_op(pow_op), e(e) {
+		while(start < n) start <<= 1;
+		v.assign(start << 1, e);
+		lazy.assign(start << 1, 0);
+	}
+	
+	void setInit(int i, T x) { v[start + i] = x; }
+	void init() {
+		lazy.assign(start << 1, 0);
+		for(int i = start-1; i > 0; --i) v[i] = op(v[i<<1], v[(i<<1)+1]);
+	}
+	
+	void add(int a, int b, T x) { _a=a; _b=b; add(1, 0, start-1, x); }
+	T querry(int a, int b) { _a=a; _b=b; return querry(1, 0, start-1); }
+	
+private:
+	OP op;
+	POP pow_op;
+	const T e;
+	vector<T> v, lazy;
+	int _a, _b;
+	
+	void push(int i, int size) {
+		if(lazy[i] == 0) return;
+		v[i] += pow_op(lazy[i], size);
+		if(i < start) {
+			lazy[i<<1] += lazy[i];
+			lazy[(i<<1)+1] += lazy[i];
+		}
+		lazy[i] = 0;
+	}
+	
+	void add(int i, int l, int r, T x) {
+		if(r < _a || _b < l) return push(i, r-l+1);
+		if(_a <= l && r <= _b) {
+			lazy[i] += x;
+			return push(i, r-l+1);
+		}
+		push(i, r-l+1);
+		int mid = (l+r) >> 1;
+		add(i<<1, l, mid, x);
+		add((i<<1)+1, mid+1, r, x);
+		v[i] = op(v[i<<1], v[(i<<1)+1]);
+	}
+	
+	T querry(int i, int l, int r) {
+		if(r < _a || _b < l) return e;
+		push(i, r-l+1);
+		if(_a <= l && r <= _b) return v[i];
+		int mid = (l+r) >> 1;
+		return op(querry(i<<1, l, mid), querry((i<<1)+1, mid+1, r));
+	}
+};
+\end{lstlisting}
+
+\subsection{Line Container}
+
+Convex hull of lines $y=kx+m$. Query maximum value at $x$.
+\begin{lstlisting}
+struct Line {
+	mutable ll k, m, p;
+	bool operator<(const Line& o) const { return k < o.k; }
+	bool operator<(ll x) const { return p < x; }
+};
+struct LineContainer : multiset<Line, less<>> {
+	// ( for doubles , use i nf = 1/.0 , div (a , b) = a/b)
+	static const ll inf = LLONG_MAX;
+	ll div(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); }
+	bool isect(iterator x, iterator y) {
+		if (y == end()) return x->p = inf, 0;
+		if (x->k == y->k) x->p = x->m > y->m ? inf : -inf;
+		else x->p = div(y->m - x->m, x->k - y->k);
+		return x->p >= y->p;
+	}
+	void add(ll k, ll m) {
+		auto z = insert({k, m, 0}), y = z++, x = y;
+		while (isect(y, z)) z = erase(z);
+		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
+		while ((y = x) != begin() && (--x)->p >= y->p)
+		isect(x, erase(y));
+	}
+	ll query(ll x) {
+		assert(!empty());
+		auto l = *lower_bound(x);
+		return l.k * x + l.m;
+	}
+};
+\end{lstlisting}
+
+\subsection{Hash}
+
+To define a hash function for a new type \verb|T|.
+\begin{lstlisting}
+namespace std {
+	template<>
+	struct hash<T> {
+		size_t operator()(const T &x) const { return ...; }
+	};
+}
+\end{lstlisting}
+	
+\section{Graphs}
+	
+\subsection{Bellman-Ford}
+
+\begin{lstlisting}
+// Distances from i with negative weights in O(nm)
+// Return empty vector if negative loop
+template<typename L>
+vector<L> BellmanFord(const vector<vector<pair<int, L>>> &G, int i) {
+	std::vector<L> d(G.size(), numeric_limits<L>::max());
+	d[i] = 0;
+	for(int step = 0; step < (int) G.size(); ++step) {
+		bool better = false;
+		for(int j = 0; j < (int) G.size(); ++j) if(d[j] != numeric_limits<L>::max())
+		for(const auto [k, l] : G[j]) {
+			const L d2 = d[j] + l;
+			if(d2 < d[k]) {
+				better = true;
+				d[k] = d2;
+			}
+		}
+		if(!better) return d;
+	}
+	return vector<L>();
+}
+\end{lstlisting}
+
+\subsection{Articulation Points and Bridges}
+
+\begin{lstlisting}
+// INPUT : graph = graph described as an adjency list
+// OUTPUT: is_AP[i] = true if i is an Articulation point
+//         bridges = list of all bridges
+VVI graph; //Given by adjency list
+VI dfs,low; //index in dfs exploration and lower index reachable
+int cur_id = 0;
+VB is_AP; //for AP
+vector<PI> bridges; //for bridges
+void run_dfs(int u,int father=-1, bool root = true){ //auxilliary function
+	low[u] = dfs[u] = cur_id++;
+	int count = 0; bool multi_edge = false;
+	for(int v: graph[u])
+	if(dfs[v]==-1){
+		if(++count>=2 && root) is_AP[u] = true; //for AP
+		run_dfs(v,u,false);
+		if(!root && low[v] >= dfs[u]) is_AP[u] = true; //for AP
+		if(low[v] > dfs[u]) bridges.push_back({u,v}); //for bridges
+		low[u] = min(low[u],low[v]);
+	}else if(multi_edge || v!=father)
+	low[u] = min(low[u],dfs[v]);
+	else multi_edge = true;
+}
+void articulationPointsAndBridges(){
+	dfs = low = VI(graph.size(),-1);
+	cur_id = 0; bridges.clear();
+	is_AP = VB(graph.size(),false);
+	FOR(i,graph.size()) if(dfs[i]==-1) run_dfs(i);
+}
+\end{lstlisting}
+
+\subsection{Strongly Connected Components}
+
+\begin{lstlisting}
+// Components are given in reverse topological order
+struct SCC {
+	const vector<vector<int>> &G;
+	vector<vector<int>> cs;
+	vector<int> c;
+	vector<vector<int>> DAG;
+	
+	SCC(const vector<vector<int>> &G): G(G) {}
+	
+	void compute() {
+		id.assign(G.size(), -1);
+		c.resize(G.size());
+		cs.clear();
+		next_id = 0;
+		for(int i = 0; i < (int) G.size(); ++i) if(id[i] == -1) dfs(i);
+	}
+	
+	void computeDAG() {
+		DAG.assign(cs.size(), vector<int>());
+		for(int i = 0; i < (int) G.size(); ++i)
+		for(int j : G[i]) if(c[j] != c[i])
+		DAG[c[i]].push_back(c[j]);
+		for(vector<int> &g : DAG) {
+			sort(g.begin(), g.end());
+			g.resize(unique(g.begin(), g.end()) - g.begin());
+		}
+	}
+	
+	private:
+	vector<int> id, stack;
+	int next_id;
+	
+	int dfs(int i) {
+		int min_id = id[i] = next_id++;
+		int start = stack.size();
+		stack.push_back(i);
+		for(int j : G[i]) if(id[j] != -2) {
+			if(id[j] == -1) min_id = min(min_id, dfs(j));
+			else if(id[j] != -2 && id[j] < min_id) min_id = id[j];
+		}
+		if(id[i] == min_id) {
+			cs.emplace_back(stack.begin()+start, stack.end());
+			stack.resize(start);
+			for(int j : cs.back()) {
+				c[j] = cs.size()-1;
+				id[j] = -2;
+			}
+		}
+		return min_id;
+	}
+};
+\end{lstlisting}
+
+\subsection{2-SAT}
+
+\begin{lstlisting}
+// 2*i --> not x_i  ||  2*i+1 --> x_i
+struct SAT2 {
+	int n;
+	vector<vector<int>> G;
+	vector<bool> values;
+	
+	SAT2(int n): n(n), G(2*n) {}
+	
+	void addClause(int a, int b) {
+		G[a^1].push_back(b);
+		G[b^1].push_back(a);
+	}
+	
+	bool solve() {
+		SCC scc(G);
+		scc.compute();
+		for(int i = 0; i < n; ++i) if(scc.c[2*i] == scc.c[2*i+1]) return false;
+		values.resize(n);
+		vector<bool> seen(n, false);
+		for(const vector<int> c : scc.cs) if(!seen[c[0]/2]) {
+			for(int i : c) {
+				seen[i/2] = true;
+				values[i/2] = i&1;
+			}
+		}
+		return true;
+	}
+};
+\end{lstlisting}
+
+\subsection{Eulerian}
+
+Works for directed/undirected graph. Choose correct when odd degree exists. \verb|gr[i][j]| is a pair (dest, edge index).
+\begin{lstlisting}
+vi eulerWalk(vector<vector<pii>>& gr, int nedges, int src=0) {
+	int n = sz(gr);
+	vi D(n), its(n), eu(nedges), ret, s = {src};
+	D[src]++; // to allow Euler paths , not just cycles
+	while (!s.empty()) {
+		int x = s.back(), y, e, &it = its[x], end = sz(gr[x]);
+		if (it == end){ ret.push_back(x); s.pop_back(); continue; }
+		tie(y, e) = gr[x][it++];
+		if (!eu[e]) {
+			D[x]--, D[y]++;
+			eu[e] = 1; s.push_back(y);
+	}}
+	for (int x : D) if (x < 0 || sz(ret) != nedges+1) return {};
+	return {ret.rbegin(), ret.rend()};
+}
+\end{lstlisting}
+
+\subsection{Bipartite Vertex Cover}
+
+\begin{lstlisting}
+vi cover(vector<vi>& g, int n, int m) {
+	vi match(m, -1);
+	int res = dfsMatching(g, match);
+	vector<bool> lfound(n, true), seen(m);
+	for (int it : match) if (it != -1) lfound[it] = false;
+	vi q, cover;
+	rep(i,0,n) if (lfound[i]) q.push_back(i);
+	while (!q.empty()) {
+		int i = q.back(); q.pop_back();
+		lfound[i] = 1;
+		for (int e : g[i]) if (!seen[e] && match[e] != -1) {
+			seen[e] = true;
+			q.push_back(match[e]);
+		}
+	}
+	rep(i,0,n) if (!lfound[i]) cover.push_back(i);
+	rep(i,0,m) if (seen[i]) cover.push_back(n+i);
+	assert(sz(cover) == res);
+	return cover;
+}
+\end{lstlisting}
+
+\subsection{Bipartite Matching}
+
+\begin{lstlisting}
+// O(VE)
+bool find(int j, vector<vi>& g, vi& btoa, vi& vis) {
+	if (btoa[j] == -1) return 1;
+	vis[j] = 1; int di = btoa[j];
+	for (int e : g[di])
+	if (!vis[e] && find(e, g, btoa, vis)) {
+		btoa[e] = di;
+		return 1;
+	}
+	return 0;
+}
+int dfsMatching(vector<vi>& g, vi& btoa) {
+	vi vis;
+	rep(i,0,sz(g)) {
+		vis.assign(sz(btoa), 0);
+		for (int j : g[i])
+		if (find(j, g, btoa, vis)) {
+			btoa[j] = i;
+			break;
+		}
+	}
+	return sz(btoa) - (int)count(all(btoa), -1);
+}
+
+// O(sqrt(V)E)
+bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
+	if (A[a] != L) return 0;
+	A[a] = -1;
+	for (int b : g[a]) if (B[b] == L + 1) {
+		B[b] = 0;
+		if (btoa[b] == -1 || dfs(btoa[b], L + 1, g, btoa, A, B))
+		return btoa[b] = a, 1;
+	}
+	return 0;
+}
+int hopcroftKarp(vector<vi>& g, vi& btoa) {
+	int res = 0;
+	vi A(g.size()), B(btoa.size()), cur, next;
+	for (;;) {
+		fill(all(A), 0);
+		fill(all(B), 0);
+		cur.clear();
+		for (int a : btoa) if(a != -1) A[a] = -1;
+		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
+		for (int lay = 1;; lay++) {
+			bool islast = 0;
+			next.clear();
+			for (int a : cur) for (int b : g[a]) {
+				if (btoa[b] == -1) {
+					B[b] = lay;
+					islast = 1;
+				}
+				else if (btoa[b] != a && !B[b]) {
+					B[b] = lay;
+					next.push_back(btoa[b]);
+				}
+			}
+			if (islast) break;
+			if (next.empty()) return res;
+			for (int a : next) A[a] = lay;
+			cur.swap(next);
+		}
+		rep(a,0,sz(g)) res += dfs(a, 0, g, btoa, A, B);
+	}
+}
+\end{lstlisting}
+
+\subsection{Matching in general graph}
+
+\begin{lstlisting}
+// 1 indexed
+struct MaxMatching {
+	int N, S;
+	std::vector<std::vector<int>> G;
+	std::vector<int> mate, base, seen;
+	std::vector<std::pair<int,int>> label;
+	
+	MaxMatching(int N): N(N), G(N+1), mate(N+1), base(N+1), label(N+1), seen(N+1) {}
+	
+	void ae(int u, int v) { G[u].push_back(v), G[v].push_back(u); }
+	
+	int group(int x) {
+		if(seen[base[x]] == S) base[x] = group(base[x]);
+		return base[x];
+	}
+	
+	void match(int a, int b) {
+		std::swap(b,mate[a]); if(mate[b] != a) return;
+		if(!label[a].second) match(mate[b] = label[a].first, b); // vertex label
+		else match(label[a].first, label[a].second), match(label[a].second, label[a].first); // edge label
+	}
+	
+	bool augment(int st) {
+		seen[st] = S; base[st] = 0; label[st] = {0,0};
+		std::queue<int> q; q.push(st);
+		while(!q.empty()) {
+			int a = q.front(); q.pop();
+			for(int b : G[a]) {
+				if(seen[b] == S) {
+					int x = group(a), y = group(b), lca = 0;
+					while(x || y) {
+						if(y) std::swap(x,y);
+						if(label[x] == std::make_pair(a,b)) { lca = x; break; }
+						label[x] = {a,b};
+						x = group(label[mate[x]].first);
+					}
+					for(int v: {group(a), group(b)}) while(v != lca) {
+						q.push(v);
+						seen[v] = S;
+						base[v] = lca;
+						v = group(label[mate[v]].first);
+					}
+				} else if(!mate[b]) {
+					match(mate[b] = a, b);
+					return true;
+				} else if(seen[mate[b]] != S) {
+					seen[mate[b]] = S;
+					base[mate[b]] = b;
+					label[b] = {0,0};
+					label[mate[b]] = {a,0};
+					q.push(mate[b]);
+				}
+			}
+		}
+		return false;
+	}
+	
+	int solve() {
+		int ans = 0;
+		for(int st = 1; st <= N; ++st) if(!mate[st]) ans += augment(S = st);
+		return ans;
+	}
+};
+\end{lstlisting}
+
+\subsection{Min Cost Matching}
+
+\begin{lstlisting}
+template<typename Scal>
+struct Hungarian {
+	int N, M;
+	vector<int> xy, yx;
+	vector<vector<Scal>> w;
+	
+	Hungarian(int N, int M):
+	N(N), M(M),
+	xy(N, -1), lx(N, numeric_limits<Scal>::max()),
+	yx(M, -1), ly(M, 0),
+	slack(M), slackx(M),
+	w(N, vector<int>(M)) { }
+	
+	void solve() {
+		for(int i = 0; i < N; ++i)
+		for(int j = 0; j < M; ++j)
+		lx[i] = min(lx[i], w[i][j]);
+		for(int i = 0; i < N; ++i) augment();
+	}
+	
+private:
+	vector<bool> S, T;
+	vector<int> slackx;
+	vector<Scal> lx, ly, slack;
+	
+	bool add(int j) {
+		T[j] = true;
+		int i = yx[j];
+		if(i == -1) {
+			while(j >= 0) swap(j, xy[yx[j] = slackx[j]]);
+			return true;
+		}
+		if(S[i]) return false;
+		S[i] = true;
+		for(int j2 = 0; j2 < M; ++j2) if(!T[j2]) {
+			Scal new_slack = w[i][j2] - lx[i] - ly[j2];
+			if(new_slack < slack[j2]) {
+				slack[j2] = new_slack;
+				slackx[j2] = i;
+				if(new_slack == 0 && add(j2)) return true;
+			}
+		}
+		return false;
+	}
+	
+	void augment() {
+		S.assign(N, false);
+		T.assign(M, false);
+		int i = 0;
+		while(xy[i] != -1) ++i;
+		S[i] = true;
+		for(int j = 0; j < M; ++j) {
+			slackx[j] = i;
+			slack[j] = w[i][j] - lx[i] - ly[j];
+		}
+		while(true) {
+			for(int j = 0; j < M; ++j)
+			if(!T[j] && slack[j] == 0 && add(j))
+			return;
+			Scal delta = numeric_limits<Scal>::max();
+			for(int j = 0; j < M; ++j) if(!T[j]) delta = min(delta, slack[j]);
+			for(int i = 0; i < N; ++i) if(S[i]) lx[i] += delta;
+			for(int j = 0; j < M; ++j)
+			if(T[j]) ly[j] -= delta;
+			else slack[j] -= delta;
+		}
+	}
+	
+};
+\end{lstlisting}
+
+\subsection{Stable Marriage $O(n^2)$}
+
+\begin{lstlisting}
+/* Preference for men. m : number of men, n : number of women.
+* L[i][ ] : list of women for man i (in decreasing order of preference)
+* R[j][i] : score that woman j gives to man i */
+#define MAXM 1024
+#define MAXW 1024
+int m, n;
+int L[MAXM][MAXW], R[MAXW][MAXM];
+int L2R[MAXM], R2L[MAXW];
+int p[MAXM];
+void stableMarriage() {
+	memset(R2L, -1, sizeof(R2L));
+	memset(p, 0, sizeof(p));
+	for (int i = 0; i < m; ++i) {
+		int man = i;
+		while (man >= 0) {
+			int wom;
+			while (true) {
+				wom = L[man][p[man]++];
+				if (R2L[wom] < 0 || R[wom][man] > R[wom][R2L[wom]]) break;
+			}
+			int hubby = R2L[wom];
+			R2L[L2R[man] = wom] = man;
+			man = hubby;
+		}
+	}
+}
+\end{lstlisting}
+
+\subsection{Max Flow $O(E^2 \log(C))$}
+
+\begin{lstlisting}
+template<typename T>
+struct FlowEdge {
+	int to, opp;
+	T c, f;
+	FlowEdge(int to, int opp, T c, T f=0): to(to), opp(opp), c(c), f(f) {}
+};
+
+template<typename T>
+struct FlowAlgo {
+	int N;
+	vector<vector<FlowEdge<T>>> G;
+	FlowAlgo(int N): N(N), G(N) {}
+	void addEdge(int a, int b, T c) {
+		G[a].emplace_back(b, G[b].size(), c);
+		G[b].emplace_back(a, G[a].size()-1, 0);
+	}
+};
+
+// O(E^2 log(C))
+template<typename T>
+struct FlowCapScaling : FlowAlgo<T> {
+	using FlowAlgo<T>::G;
+	FlowCapScaling(int N): FlowAlgo<T>(N) {}
+	
+	T maxFlow(int s, int t) {
+		C = 0;
+		for(const auto &g : G)
+		for(const auto &e : g)
+		C = max(C, e.c);
+		seen.assign(FlowAlgo<T>::N, 0);
+		step = 1;
+		_t = t;
+		
+		T ans = 0;
+		while(C > 0) {
+			++ step;
+			if(dfs(s)) ans += C;
+			else C /= 2;
+		}
+		return ans;
+	}
+	
+	private:
+	vector<int> seen;
+	int step, _t;
+	T C;
+	
+	bool dfs(int i) {
+		if(i == _t) return true;
+		seen[i] = step;
+		for(auto &e : G[i])
+		if(seen[e.to] < step && e.f + C <= e.c && dfs(e.to)) {
+			e.f += C;
+			G[e.to][e.opp].f -= C;
+			return true;
+		}
+		return false;
+	}
+};
+\end{lstlisting}
+
+\subsection{Max Flow $O(E^2V)$}
+
+\begin{lstlisting}
+// INPUT : N = number of vertices
+// The graph is constructed using addEdge and can have multi-edges
+// s and t are the source and the sink
+// OUTPUT: compute() returns the value of the flows
+// the flow going through edge e is e.capa-e.res
+struct EdmondsKarp{
+	struct edge{
+		int x,y, capa,res;
+		int sister; //reciproqual edge
+		edge(int x_,int y_,int c, int r):x(x_), y(y_),capa(c),res(r){}
+	};
+	int N;
+	vector<vector<edge> > graph;
+	EdmondsKarp(int N_):N(N_), graph(N_){}
+
+	void addEdge(int x,int y,int capa) {
+		if(capa<0) return addEdge(y,x,-capa);
+		graph[x].push_back(edge(x,y,capa,capa));
+		graph[y].push_back(edge(y,x,capa,0));
+		graph[y].back().sister = graph[x].size()-1;
+		graph[x].back().sister = graph[y].size()-1;
+	}
+	int compute(int s,int t) {
+		int flow = 0;
+		for(auto e:graph[t]) flow+=e.res;
+		while(true){
+			vector<edge*> prev(N,nullptr);
+			int capa = -1;
+			queue<PI> file;
+			file.push( PI({s,INT_MAX}) );
+			while(!file.empty()){
+				PI cur = file.front(); file.pop();
+				int u = cur.first, c = cur.second;
+				if(u == t){ capa = c;break;}
+				for(auto & e : graph[u]) //don't forget the "&" !
+				if(e.res>0 && !prev[e.y] && e.y!=s){
+					prev[e.y] = &e;
+					file.push({e.y,min(c,e.res)});
+				}
+			}
+			if(capa==-1) return flow;
+			flow+=capa;
+			edge* back=prev[t];
+			do{
+				back->res -= capa;
+				graph[back->y][back->sister].res += capa;
+			}while(back = prev[back->x]); //"=" and not "=="
+		}
+	}
+};
+\end{lstlisting}
+
+\subsection{Max Flow $O(V^2\sqrt{E})$}
+
+\begin{lstlisting}
+struct PushRelabel {
+	struct Edge {
+		int dest, back;
+		ll f, c;
+	};
+	vector<vector<Edge>> g;
+	vector<ll> ec;
+	vector<Edge*> cur;
+	vector<vi> hs; vi H;
+	PushRelabel(int n) : g(n), ec(n), cur(n), hs(2*n), H(n) {}
+	void addEdge(int s, int t, ll cap, ll rcap=0) {
+		if (s == t) return;
+		g[s].push_back({t, sz(g[t]), 0, cap});
+		g[t].push_back({s, sz(g[s])-1, 0, rcap});
+	}
+	void addFlow(Edge& e, ll f) {
+		Edge &back = g[e.dest][e.back];
+		if (!ec[e.dest] && f) hs[H[e.dest]].push_back(e.dest);
+		e.f += f; e.c -= f; ec[e.dest] += f;
+		back.f -= f; back.c += f; ec[back.dest] -= f;
+	}
+	ll calc(int s, int t) {
+		int v = sz(g); H[s] = v; ec[t] = 1;
+		vi co(2*v); co[0] = v-1;
+		rep(i,0,v) cur[i] = g[i].data();
+		for (Edge& e : g[s]) addFlow(e, e.c);
+		for (int hi = 0;;) {
+			while (hs[hi].empty()) if (!hi--) return -ec[s];
+			int u = hs[hi].back(); hs[hi].pop_back();
+			while (ec[u] > 0) // discharge u
+			if (cur[u] == g[u].data() + sz(g[u])) {
+				H[u] = 1e9;
+				for (Edge& e : g[u]) if (e.c && H[u] > H[e.dest]+1)
+				H[u] = H[e.dest]+1, cur[u] = &e;
+				if (++co[H[u]], !--co[hi] && hi < v)
+				rep(i,0,v) if (hi < H[i] && H[i] < v)
+				--co[H[i]], H[i] = v + 1;
+				hi = H[u];
+			} else if (cur[u]->c && H[u] == H[cur[u]->dest]+1)
+			addFlow(*cur[u], min(ec[u], cur[u]->c));
+			else ++cur[u];
+		}
+	}
+	bool leftOfMinCut(int a) { return H[a] >= sz(g); }
+};
+\end{lstlisting}
+
+\section{Tree}
+
+\subsection{LCA}
+
+\begin{lstlisting}
+// before calling set: N, LOGN, n, parent (vertices numbered 1..n)
+// parent - array: parent[i] is the parent of i (parent[root] is irrelevant)
+// works for a tree. if you have a forest, make it into a tree by adding a superroot
+#define N 100007
+#define LOGN 17
+int n, parent[N], // input
+pos[N], anc[LOGN+1][N]; // temp
+int getPos (int u) {
+	if (pos[u] == -1) pos[u] = getPos(parent[u])+1;
+	return pos[u];
+}
+void init (int root) {
+	FORI(i,n) anc[0][i] = parent[i];
+	FORI(i,n) pos[i] = -1;
+	pos[root] = 0;
+	FORI(i,n) if (pos[i] == -1) getPos(i);
+	FORI(i,LOGN) FORI(j,n) anc[i][j] = anc[i-1][anc[i-1][j]];
+}
+int lca (int u, int v) {
+	if (pos[u] < pos[v]) swap(u,v);
+	int diff = pos[u] - pos[v];
+	REPD(k,LOGN,0) if ((1<<k) <= diff) {
+		diff -= 1<<k;
+		u = anc[k][u];
+	}
+	// now they are equidistant from root
+	if (u==v) return u;
+	REPD(k,LOGN,0) if (anc[k][u] != anc[k][v]) {
+		u = anc[k][u];
+		v = anc[k][v];
+	}
+	return parent[u];
+}
+\end{lstlisting}
+
+\section{Strings}
+
+\subsection{KMP}
+
+\begin{lstlisting}
+template<typename S>
+struct KMP {
+	S p;
+	vector<int> d;
+	KMP() = default;
+	KMP(const S &p): p(p) { init(); }
+	void init() {
+		d.assign(p.size()+1, -1);
+		for(int i = 1; i <= p.size(); ++i) {
+			d[i] = d[i-1];
+			while(d[i] != -1 && p[d[i]] != p[i-1]) d[i] = d[d[i]];
+			++ d[i];
+		}
+	}
+	
+	vector<int> matches(const S &a) {
+		vector<int> ans;
+		for(int i = 0, q = 0; i < a.size(); ++i) {
+			while(q != -1 && p[q] != a[i]) q = d[q];
+			++ q;
+			if(q == p.size()) {
+				ans.push_back(i - q + 1);
+				q = d[q];
+			}
+		}
+		return ans;
+	}
+};
+\end{lstlisting}
+
+\subsection{Min Rotation}
+
+Finds the lexicographically smallest rotation of a string $s$ in $\mathcal{O}(|s|)$.
+\begin{lstlisting}
+int minRotation(string s) {
+	int a=0, N=sz(s); s += s;
+	rep(b,0,N) rep(k,0,N) {
+		if (a+k == b || s[a+k] < s[b+k]) {b += max(0, k-1); break;}
+		if (s[a+k] > s[b+k]) { a = b; break; }
+	}
+	return a;
+}
+\end{lstlisting}
+
+\subsection{Aho-Corasick}
+
+\begin{lstlisting}
+template<typename S>
+struct AhoCorasick {
+	typedef typename S::value_type T;
+	std::vector<std::vector<int>> ends;
+	std::vector<int> back;
+	AhoCorasick() = default;
+	AhoCorasick(const std::vector<S> &ps, bool everyEnds=false): ends(1), _next(1) {
+		for(int i = 0; i < ps.size(); ++i) {
+			int n = 0;
+			for(T x : ps[i]) {
+				if(!_next[n].count(x)) {
+					_next[n][x] = _next.size();
+					ends.emplace_back();
+					_next.emplace_back();
+				}
+				n = _next[n][x];
+			}
+			ends[n].push_back(i);
+		}
+		back.assign(_next.size(), -1);
+		for(std::queue<int> Q({0}); !Q.empty(); Q.pop()) {
+			int n = Q.front();
+			if(everyEnds && back[n] != -1)
+				ends[n].insert(ends[n].end(), ends[back[n]].begin(), ends[back[n]].end());
+			for(const auto [x, nn] : _next[n]) {
+				back[nn] = next(back[n], x);
+				Q.push(nn);
+			}
+		}
+	}
+	
+	int next(int n, T x) {
+		while(n != -1 && !_next[n].count(x)) n = back[n];
+		return n == -1 ? 0 : _next[n][x];
+	}
+	
+	std::vector<int> states(const S &a) {
+		int n = 0;
+		std::vector<int> ans(a.size());
+		for(int i = 0; i < a.size(); ++i) ans[i] = n = next(n, a[i]);
+		return ans;
+	}
+	
+private:
+	std::vector<std::unordered_map<T, int>> _next;
+};
+\end{lstlisting}
+
+\subsection{Pattern Matching 2D}
+
+\begin{lstlisting}
+template<typename S>
+struct BakerBird {
+	BakerBird(const vector<S> &p): X(p.size()), Y(p[0].size()), aho(p), kmp() {
+		kmp.p.resize(X);
+		for(int i = 0; i < X; ++i) kmp.p[i] = aho.states(p[i]).back();
+		kmp.init();
+	}
+	
+	vector<pii> matches(const vector<S> &a) {
+		int N = a.size();
+		if(N < X) return {};
+		int M = a[0].size();
+		if(M < Y) return {};
+		vector<pii> ans;
+		vector<vector<int>> states(N);
+		for(int i = 0; i < N; ++i) states[i] = aho.states(a[i]);
+		vector<int> col(N);
+		for(int j = Y-1; j < M; ++j) {
+			for(int i = 0; i < N; ++i) col[i] = states[i][j];
+			for(int i : kmp.matches(col)) ans.emplace_back(i, j-Y+1);
+		}
+		return ans;
+	}
+	
+	private:
+	int X, Y;
+	AhoCorasick<S> aho;
+	KMP<vector<int>> kmp;
+};
+\end{lstlisting}
+
+\subsection{Suffix array}
+
+\begin{lstlisting}
+// Complexity SuffixArray(S) -> O(|S|*log|S|)
+// GetSuffixArray() -> O(1)
+// LongestCommonPrefix(i, j) -> O(log|S|)
+template<class T> struct SuffixArray {
+	const int L;
+	vector<PII> M;
+	VVI P;
+	// Suffix array construction : ranks of suffixes in lexicographical order
+	SuffixArray(const T &S) : L(S.size()), P(1, VI(L, 0)), M(L) {
+		for (int i = 0; i < L; i++) P[0][i] = int(S[i]);
+		for (int skip = 1, level = 1; skip < L; skip *= 2, level++) {
+			P.push_back(VI(L, 0));
+			for (int i = 0; i < L; i++)
+				M[i] = {{P[level-1][i], i+skip<L ? P[level-1][i+skip] : -1000}, i};
+			sort(ALL(M));
+			for (int i = 0; i < L; i++)
+				P[level][M[i].second] = (i > 0 && M[i].first == M[i-1].first) ? P[level][M[i-1].second]
+			: i;
+		}
+	}
+	// The suffix array is the inverse permutation of the result
+	VI GetSuffixArray() { return P.back(); }
+	// Returns the size of the longest common prefix of s[i...L-1] and s[j...L-1]
+	int LongestCommonPrefix(int i, int j) {
+		int len = 0;
+		if (i == j) return L - i;
+		for (int k = P.size() - 1; k >= 0 && i < L && j < L; k--) {
+			if (P[k][i] == P[k][j]) {
+				i += 1 << k;
+				j += 1 << k;
+				len += 1 << k;
+			}
+		}
+		return len;
+	}
+};
+\end{lstlisting}
+
+\subsection{Suffix tree}
+
+\begin{lstlisting}
+struct SuffixTree {
+	enum { N = 200010, ALPHA = 26 }; // N ~= 2*maxlen+10
+	int toi(char c) { return c - 'a'; }
+	string a; // v = cur node , q = cur position
+	int t[N][ALPHA],l[N],r[N],p[N],s[N],v=0,q=0,m=2;
+	void ukkadd(int i, int c) { suff:
+		if (r[v]<=q) {
+			if (t[v][c]==-1) { t[v][c]=m; l[m]=i;
+				p[m++]=v; v=s[v]; q=r[v]; goto suff; }
+			v=t[v][c]; q=l[v];
+		}
+		if (q==-1 || c==toi(a[q])) q++; else {
+			l[m+1]=i; p[m+1]=m; l[m]=l[v]; r[m]=q;
+			p[m]=p[v]; t[m][c]=m+1; t[m][toi(a[q])]=v;
+			l[v]=q; p[v]=m; t[p[m]][toi(a[l[m]])]=m;
+			v=s[p[m]]; q=l[m];
+			while (q<r[m]) { v=t[v][toi(a[q])]; q+=r[v]-l[v]; }
+			if (q==r[m]) s[m]=v; else s[m]=m+2;
+			q=r[v]-(q-r[m]); m+=2; goto suff;
+		}
+	}
+	SuffixTree(string a) : a(a) {
+		fill(r,r+N,sz(a));
+		memset(s, 0, sizeof s);
+		memset(t, -1, sizeof t);
+		fill(t[1],t[1]+ALPHA,0);
+		s[0] = 1; l[0] = l[1] = -1; r[0] = r[1] = p[0] = p[1] = 0;
+		rep(i,0,sz(a)) ukkadd(i, toi(a[i]));
+	}
+	// example : find longest common substring ( uses ALPHA = 28)
+	pii best;
+	int lcs(int node, int i1, int i2, int olen) {
+		if (l[node] <= i1 && i1 < r[node]) return 1;
+		if (l[node] <= i2 && i2 < r[node]) return 2;
+		int mask = 0, len = node ? olen + (r[node] - l[node]) : 0;
+		rep(c,0,ALPHA) if (t[node][c] != -1)
+		mask |= lcs(t[node][c], i1, i2, len);
+		if (mask == 3)
+		best = max(best, {len, r[node] - len});
+		return mask;
+	}
+	static pii LCS(string s, string t) {
+		SuffixTree st(s + (char)('z' + 1) + t + (char)('z' + 2));
+		st.lcs(0, sz(s), sz(s) + 1 + sz(t), 0);
+		return st.best;
+	}
+};
+\end{lstlisting}
+
+\section{Geometry}
+
+\begin{lstlisting}
+template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
+template<class T>
+struct Point {
+	typedef Point P;
+	T x, y;
+	explicit Point(T x=0, T y=0) : x(x), y(y) {}
+	bool operator<(P p) const { return tie(x,y) < tie(p.x,p.y); }
+	bool operator==(P p) const { return tie(x,y)==tie(p.x,p.y); }
+	P operator+(P p) const { return P(x+p.x, y+p.y); }
+	P operator-(P p) const { return P(x-p.x, y-p.y); }
+	P operator*(T d) const { return P(x*d, y*d); }
+	P operator/(T d) const { return P(x/d, y/d); }
+	T dot(P p) const { return x*p.x + y*p.y; }
+	T cross(P p) const { return x*p.y - y*p.x; }
+	T cross(P a, P b) const { return (a-*this).cross(b-*this); }
+	T dist2() const { return x*x + y*y; }
+	double dist() const { return sqrt((double)dist2()); }
+	double angle() const { return atan2(y, x); }
+	P unit() const { return *this/dist(); }
+	P perp() const { return P(-y, x); } // rotates +90 degrees
+	P normal() const { return perp().unit(); }
+	P rotate(double a) const { return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
+	friend ostream& operator<<(ostream& os, P p) {
+		return os << "(" << p.x << "," << p.y << ")"; }
+};
+
+// Line(a,b) - Point(p) Distance
+template<class P>
+double lineDist(const P& a, const P& b, const P& p) {
+	return (double)(b-a).cross(p-a)/(b-a).dist();
+}
+
+// Segment(s,e) - Point(p) Distance
+typedef Point<double> P;
+double segDist(P& s, P& e, P& p) {
+	if (s==e) return (p-s).dist();
+	auto d = (e-s).dist2(), t = min(d,max(.0,(p-s).dot(e-s)));
+	return ((p-s)*d-(e-s)*t).dist()/d;
+}
+
+// Segment(a, b) - Segment(c, d) Intersection
+template<class P> vector<P> segInter(P a, P b, P c, P d) {
+	auto oa = c.cross(d, a), ob = c.cross(d, b),
+	oc = a.cross(b, c), od = a.cross(b, d);
+	// Checks if intersection is single non-endpoint point.
+	if (sgn(oa) * sgn(ob) < 0 && sgn(oc) * sgn(od) < 0)
+	return {(a * ob - b * oa) / (ob - oa)};
+	set<P> s;
+	if (onSegment(c, d, a)) s.insert(a);
+	if (onSegment(c, d, b)) s.insert(b);
+	if (onSegment(a, b, c)) s.insert(c);
+	if (onSegment(a, b, d)) s.insert(d);
+	return {all(s)};
+}
+
+// Side of Point(p) with respect to s->e (1=left, 0=on, -1=right)
+template<class P>
+int sideOf(P s, P e, P p) { return sgn(s.cross(e, p)); }
+template<class P>
+int sideOf(const P& s, const P& e, const P& p, double eps) {
+	auto a = (e-s).cross(p-s);
+	double l = (e-s).dist()*eps;
+	return (a > l) - (a < -l);
+}
+
+// Is Point(p) on [s, e]
+template<class P> bool onSegment(P s, P e, P p) {
+	return p.cross(s, e) == 0 && (s - p).dot(e - p) <= 0;
+}
+
+// Is Point(a) in Polygon(a)
+template<class P>
+bool inPolygon(vector<P> &p, P a, bool strict=true) {
+	int cnt = 0, n = sz(p);
+	rep(i,0,n) {
+		P q = p[(i + 1) % n];
+		if (onSegment(p[i], q, a)) return !strict;
+		//or : i f ( segDist (p [ i ] , q , a) <= eps) return ! s t r i c t ;
+		cnt ^= ((a.y<p[i].y) - (a.y<q.y)) * a.cross(p[i], q) > 0;
+	}
+	return cnt;
+}
+
+// Polygon area (twice and signed)
+template<class T>
+T polygonArea2(vector<Point<T>>& v) {
+	T a = v.back().cross(v[0]);
+	rep(i,0,sz(v)-1) a += v[i].cross(v[i+1]);
+	return a;
+}
+
+// Polygon center
+typedef Point<double> P;
+P polygonCenter(const vector<P>& v) {
+	P res(0, 0); double A = 0;
+	for (int i = 0, j = sz(v) - 1; i < sz(v); j = i++) {
+		res = res + (v[i] + v[j]) * v[j].cross(v[i]);
+		A += v[j].cross(v[i]);
+	}
+	return res / A / 3;
+}
+
+// Cut Polygon(poly) with Line(s -> e) and keep the right part
+typedef Point<double> P;
+vector<P> polygonCut(const vector<P>& poly, P s, P e) {
+	vector<P> res;
+	rep(i,0,sz(poly)) {
+		P cur = poly[i], prev = i ? poly[i-1] : poly.back();
+		bool side = s.cross(e, cur) < 0;
+		if (side != (s.cross(e, prev) < 0))
+		res.push_back(lineInter(s, e, cur, prev).second);
+		if (side)
+		res.push_back(cur);
+	}
+	return res;
+}
+
+// Convex Hull
+typedef Point<ll> P;
+vector<P> convexHull(vector<P> pts) {
+	if (sz(pts) <= 1) return pts;
+	sort(all(pts));
+	vector<P> h(sz(pts)+1);
+	int s = 0, t = 0;
+	for (int it = 2; it--; s = --t, reverse(all(pts)))
+	for (P p : pts) {
+		while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
+		h[t++] = p;
+	}
+	return {h.begin(), h.begin() + t - (t == 2 && h[0] == h[1])};
+}
+
+// Hull diameter
+typedef Point<ll> P;
+array<P, 2> hullDiameter(vector<P> S) {
+	int n = sz(S), j = n < 2 ? 0 : 1;
+	pair<ll, array<P, 2>> res({0, {S[0], S[0]}});
+	rep(i,0,j)
+	for (;; j = (j + 1) % n) {
+	res = max(res, {(S[i] - S[j]).dist2(), {S[i], S[j]}});
+	if ((S[(j + 1) % n] - S[j]).cross(S[i + 1] - S[i]) >= 0)
+	break;
+}
+return res.second;
+}
+
+// Point in Hull (log n)
+bool inHull(const vector<P>& l, P p, bool strict = true) {
+	int a = 1, b = sz(l) - 1, r = !strict;
+	if (sz(l) < 3) return r && onSegment(l[0], l.back(), p);
+	if (sideOf(l[0], l[a], l[b]) > 0) swap(a, b);
+	if (sideOf(l[0], l[a], p) >= r || sideOf(l[0], l[b], p)<= -r)
+	return false;
+	while (abs(a - b) > 1) {
+		int c = (a + b) / 2;
+		(sideOf(l[0], l[c], p) > 0 ? b : a) = c;
+	}
+	return sgn(l[a].cross(l[b], p)) < r;
+}
+
+// Closest pair of Point in set O(n log n)
+typedef Point<ll> P;
+pair<P, P> closest(vector<P> v) {
+	assert(sz(v) > 1);
+	set<P> S;
+	sort(all(v), [](P a, P b) { return a.y < b.y; });
+	pair<ll, pair<P, P>> ret{LLONG_MAX, {P(), P()}};
+	int j = 0;
+	for (P p : v) {
+		P d{1 + (ll)sqrt(ret.first), 0};
+		while (v[j].y <= p.y - d.x) S.erase(v[j++]);
+		auto lo = S.lower_bound(p - d), hi = S.upper_bound(p + d);
+		for (; lo != hi; ++lo)
+		ret = min(ret, {(*lo - p).dist2(), {*lo, p}});
+		S.insert(p);
+	}
+	return ret.second;
+}
+
+// KD Tree
+typedef long long T;
+typedef Point<T> P;
+const T INF = numeric_limits<T>::max();
+bool on_x(const P& a, const P& b) { return a.x < b.x; }
+bool on_y(const P& a, const P& b) { return a.y < b.y; }
+struct Node {
+	P pt; // if this is a leaf, the single point in it
+	T x0 = INF, x1 = -INF, y0 = INF, y1 = -INF; // bounds
+	Node *first = 0, *second = 0;
+	T distance(const P& p) { // min squared distance to a point
+		T x = (p.x < x0 ? x0 : p.x > x1 ? x1 : p.x);
+		T y = (p.y < y0 ? y0 : p.y > y1 ? y1 : p.y);
+		return (P(x,y) - p).dist2();
+	}
+	Node(vector<P>&& vp) : pt(vp[0]) {
+		for (P p : vp) {
+			x0 = min(x0, p.x); x1 = max(x1, p.x);
+			y0 = min(y0, p.y); y1 = max(y1, p.y);
+		}
+		if (vp.size() > 1) {
+			// split on x if width >= height (not ideal . . . )
+			sort(all(vp), x1 - x0 >= y1 - y0 ? on_x : on_y);
+			// divide by taking half the array for each child (not
+			// best performance with many duplicates in the middle)
+			int half = sz(vp)/2;
+			first = new Node({vp.begin(), vp.begin() + half});
+			second = new Node({vp.begin() + half, vp.end()});
+		}
+	}
+};
+struct KDTree {
+	Node* root;
+	KDTree(const vector<P>& vp) : root(new Node({all(vp)})) {}
+	pair<T, P> search(Node *node, const P& p) {
+		if (!node->first) {
+			// uncomment if we should not find the point it self :
+			// if (p == node->pt) return {INF, P()};
+			return make_pair((p - node->pt).dist2(), node->pt);
+			if (sz(s) == 2) return { a, a->r() };
+			splice(a->r(), b);
+			auto side = s[0].cross(s[1], s[2]);
+			Q c = side ? connect(b, a) : 0;
+			return {side < 0 ? c->r() : a, side < 0 ? c : b->r() };
+		}
+		Node *f = node->first, *s = node->second;
+		T bfirst = f->distance(p), bsec = s->distance(p);
+		if (bfirst > bsec) swap(bsec, bfirst), swap(f, s);
+		// search closest side first , other side if needed
+		auto best = search(f, p);
+		if (bsec < best.first) best = min(best, search(s, p));
+		return best;
+	}
+	// find nearest point to a point, and its squared distance
+	// (requires an arbitrary operator< for Point)
+	pair<T, P> nearest(const P& p) { return search(root, p);
+}
+};
+
+// Delaunay
+typedef Point<ll> P;
+typedef struct Quad* Q;
+typedef __int128_t lll; // (can be ll if coords are < 2e4)
+P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point
+struct Quad {
+	bool mark; Q o, rot; P p;
+	P F() { return r()->p; }
+	Q r() { return rot->rot; }
+	Q prev() { return rot->o->rot; }
+	Q next() { return r()->prev(); }
+};
+bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
+	lll p2 = p.dist2(), A = a.dist2()-p2,
+	B = b.dist2()-p2, C = c.dist2()-p2;
+	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
+}
+Q makeEdge(P orig, P dest) {
+	Q q[] = {new Quad{0,0,0,orig}, new Quad{0,0,0,arb},
+		new Quad{0,0,0,dest}, new Quad{0,0,0,arb}};
+	rep(i,0,4)
+	q[i]->o = q[-i & 3], q[i]->rot = q[(i+1) & 3];
+	return *q;
+}
+void splice(Q a, Q b) {
+	swap(a->o->rot->o, b->o->rot->o); swap(a->o, b->o);
+}
+Q connect(Q a, Q b) {
+	Q q = makeEdge(a->F(), b->p);
+	splice(q, a->next());
+	splice(q->r(), b);
+	return q;
+}
+pair<Q,Q> rec(const vector<P>& s) {
+	if(sz(s) <= 3) {
+		Q a = makeEdge(s[0], s[1]), b = makeEdge(s[1], s.back());
+		if (sz(s) == 2) return { a, a->r() };
+		splice(a->r(), b);
+		auto side = s[0].cross(s[1], s[2]);
+		Q c = side ? connect(b, a) : 0;
+		return {side < 0 ? c->r() : a, side < 0 ? c : b->r() };
+	}
+
+	#define H(e) e->F(), e->p
+	#define valid(e) (e->F().cross(H(base)) > 0)
+	
+	Q A, B, ra, rb;
+	int half = sz(s) / 2;
+	tie(ra, A) = rec({all(s) - half});
+	tie(B, rb) = rec({sz(s) - half + all(s)});
+	while ((B->p.cross(H(A)) < 0 && (A = A->next())) ||
+	(A->p.cross(H(B)) > 0 && (B = B->r()->o)));
+	Q base = connect(B->r(), A);
+	if (A->p == ra->p) ra = base->r();
+	if (B->p == rb->p) rb = base;
+	
+	#define DEL(e, init, dir) Q e = init->dir; if (valid(e)) \
+	while (circ(e->dir->F(), H(base), e->F())) { \
+		Q t = e->dir; \
+		splice(e, e->prev()); \
+		splice(e->r(), e->r()->prev()); \
+		e = t; \
+	}
+
+	for (;;) {
+		DEL(LC, base->r(), o); DEL(RC, base, prev());
+		if (!valid(LC) && !valid(RC)) break;
+		if (!valid(LC) || (valid(RC) && circ(H(RC), H(LC))))
+			base = connect(RC, base->r());
+		else base = connect(base->r(), LC->r());
+	}
+	return { ra, rb };
+}
+vector<P> triangulate(vector<P> pts) {
+	sort(all(pts)); assert(unique(all(pts)) == pts.end());
+	if (sz(pts) < 2) return {};
+	Q e = rec(pts).first;
+	vector<Q> q = {e};
+	int qi = 0;
+	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;
+	#define ADD { Q c = e; do { c->mark = 1; pts.push_back(c->p); \
+			q.push_back(c->r()); c = c->next(); } while (c != e); }
+	ADD; pts.clear();
+	while (qi < sz(q)) if (!(e = q[qi++])->mark) ADD;
+	return pts;
+}
+\end{lstlisting}
+
+\section{More}
+
+\subsection{Subset of size $k$}
+
+\begin{lstlisting}
+//enumerate all subsets of [1;n] of size k
+//t is the array you want to get subsets from.
+int k = 10, n = 100; //these are your values
+int set = (1 << k) - 1;
+while(set < (1<<n)) {
+	FOR(j,n) if((set>>j)&1)
+	; //cout << t[j]; //do what you need here.
+	int c = set & -set;// Gosper's hack
+	int r = set + c;
+	set = (((r^set) >> 2) / c) | r;
+}
+\end{lstlisting}
+
+\subsection{Longuest increasing subsequence}
+
+\begin{lstlisting}
+// Given a list of numbers of length n, this routine extracts a longest increasing subsequence.
+// INPUT: a vector of integers
+// OUTPUT: a vector containing the longest increasing subsequence
+#define STRICTLY_INCREASNG
+VI LongestIncreasingSubsequence(VI v) {
+	VPII best;
+	VI dad(v.size(), -1);
+	for (int i = 0; i < v.size(); i++) {
+		#ifdef STRICTLY_INCREASNG
+		PII item = make_pair(v[i], 0);
+		VPII::iterator it = lower_bound(best.begin(), best.end(), item);
+		item.second = i;
+		#else
+		PII item = make_pair(v[i], i);
+		VPII::iterator it = upper_bound(best.begin(), best.end(), item);
+		#endif
+		if (it == best.end()) {
+			dad[i] = (best.size() == 0 ? -1 : best.back().second);
+			best.push_back(item);
+		} else {
+			dad[i] = dad[it->second];
+			*it = item;
+		}
+	}
+	VI ret;
+	for (int i = best.back().second; i >= 0; i = dad[i])
+	ret.push_back(v[i]);
+	reverse(ret.begin(), ret.end());
+	return ret;
+}
+\end{lstlisting}
 
 \end{document}

@@ -20,10 +20,9 @@ struct BakerBird {
 		if(M < Y) return {};
 		vector<pii> ans;
 		vector<vector<int>> states(N);
-		for(int i = 0; i < N; ++i)
-			states[i] = aho.states(a[i]);
+		for(int i = 0; i < N; ++i) states[i] = aho.states(a[i]);
+		vector<int> col(N);
 		for(int j = Y-1; j < M; ++j) {
-			vector<int> col(N);
 			for(int i = 0; i < N; ++i) col[i] = states[i][j];
 			for(int i : kmp.matches(col))
 				ans.emplace_back(i, j-Y+1);

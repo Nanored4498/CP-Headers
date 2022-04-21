@@ -2,16 +2,14 @@
 #include <unordered_map>
 #include <queue>
 
-using namespace std;
-
 template<typename S>
 struct AhoCorasick {
 	typedef typename S::value_type T;
-	vector<vector<int>> ends;
-	vector<int> back;
+	std::vector<std::vector<int>> ends;
+	std::vector<int> back;
 
 	AhoCorasick() = default;
-	AhoCorasick(const vector<S> &ps, bool everyEnds = false): ends(1), _next(1) {
+	AhoCorasick(const std::vector<S> &ps, bool everyEnds = false): ends(1), _next(1) {
 		for(int i = 0; i < ps.size(); ++i) {
 			int n = 0;
 			for(T x : ps[i]) {
@@ -25,7 +23,7 @@ struct AhoCorasick {
 			ends[n].push_back(i);
 		}
 		back.assign(_next.size(), -1);
-		for(queue<int> Q({0}); !Q.empty(); Q.pop()) {
+		for(std::queue<int> Q({0}); !Q.empty(); Q.pop()) {
 			int n = Q.front();
 			if(everyEnds && back[n] != -1)
 				ends[n].insert(ends[n].end(), ends[back[n]].begin(), ends[back[n]].end());
@@ -41,14 +39,14 @@ struct AhoCorasick {
 		return n == -1 ? 0 : _next[n][x];
 	}
 
-	vector<int> states(const S &a) {
+	std::vector<int> states(const S &a) {
 		int n = 0;
-		vector<int> ans(a.size());
+		std::vector<int> ans(a.size());
 		for(int i = 0; i < a.size(); ++i)
 			ans[i] = n = next(n, a[i]);
 		return ans;
 	}
 
 private:
-	vector<unordered_map<T, int>> _next;
+	std::vector<std::unordered_map<T, int>> _next;
 };

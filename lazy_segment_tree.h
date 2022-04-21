@@ -1,5 +1,4 @@
 #include <vector>
-#include <functional>
 
 using namespace std;
 
@@ -7,11 +6,11 @@ using namespace std;
 // exemple:
 //    op(a, b) = a+b        pow_op(a, n) = a*n
 //    op(a,b) = min(a, b)   pow_op(a, n) = a
-template<typename T>
+template<typename T, typename OP, typename POP>
 struct LazySegmentTree {
 	int start;
 
-	LazySegmentTree(int n, const function<T(T, T)> &_op, const function<T(T, int)> &pow_op, T e):
+	LazySegmentTree(int n, const OP &_op, const POP &pow_op, T e):
 		start(1), op(_op), pow_op(pow_op), e(e) {
 		while(start < n) start <<= 1;
 		v.assign(start << 1, e);
@@ -51,8 +50,8 @@ struct LazySegmentTree {
 	T querryAll() { push(1, start); return v[1]; }
 
 private:
-	const function<T(T, T)> &op;
-	const function<T(T, int)> &pow_op;
+	OP op;
+	POP pow_op;
 	const T e;
 	vector<T> v, lazy;
 	int _a, _b;
