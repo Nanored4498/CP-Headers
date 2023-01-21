@@ -10,7 +10,7 @@ T xGCD(T a, T b, T &u, T &v) {
 		v = 0;
 		return a;
 	}
-	int u2, v2, g = xGCD(b, a%b, u2, v2);
+	T u2, v2, g = xGCD(b, a%b, u2, v2);
 	u = v2;
 	v = u2 - v2 * (a/b);
 	return g;
@@ -22,7 +22,7 @@ T chineseRM(vector<T> &a, vector<T> &m) {
 	assert(a.size() == m.size());
 	if(a.empty()) return 0;
 	T b = a[0], n = m[0];
-	for(int i = 1; i < a.size(); ++i) {
+	for(int i = 1; i < (int) a.size(); ++i) {
 		T u, v, g = xGCD(m[i], n, u, v);
 		T rg = b % g;
 		if((a[i] % g) != rg) return -1;

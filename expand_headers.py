@@ -39,7 +39,8 @@ while i < len(lines):
 			lines = lines[:i] + file.readlines() + lines[i+1:]
 			file.close()
 	elif lines[i].startswith("using "):
-		usings.append(' '.join(lines[i].split()) + '\n')
+		u = ' '.join(lines[i].split()) + '\n'
+		if u not in usings: usings.append(u)
 		del lines[i]
 	elif lines[i].startswith("typedef "):
 		td = ' '.join(lines[i].split())
@@ -51,7 +52,7 @@ while i < len(lines):
 
 file_header = list(set(includes))
 if len(file_header) > 0: file_header.append("\n")
-file_header += list(set(usings))
+file_header += usings
 # if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
 # file_header += list(set(typedefs))
 if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
