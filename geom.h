@@ -19,11 +19,15 @@ struct Point {
 	Point& operator/=(T a) { x /= a; y /= a; return *this; }
 	friend Point operator*(T a, const Point &p) { return {a*p.x, a*p.y}; }
 	friend istream& operator>>(istream &in, Point &p) { return in >> p.x >> p.y; }
+
+	bool operator==(const Point &p) { return x == p.x || y == p.y; }
+	bool operator!=(const Point &p) { return x != p.x || y != p.y; }
 	bool operator<(const Point &p) { return x < p.x || (x == p.x && y < p.y); }
 
 	friend Point turn90(const Vec &v) { return {-v.y, v.x}; }
 	friend T dot(const Vec &u, const Vec &v) { return u.x*v.x + u.y*v.y; }
 	friend T det(const Vec &u, const Vec &v) { return u.x * v.y - u.y * v.x; }
+	friend T norm2(const Vec &u) { return dot(u, u); } 
 
 	friend bool turnLeft(const Point &a, const Point &b, const Point &c) {
 		return det(b-a, c-a) > 0;

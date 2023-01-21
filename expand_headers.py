@@ -17,8 +17,7 @@ lines = inf.readlines()
 inf.close()
 
 includes = []
-usings = []
-typedefs = set()
+usings = set()
 local = set()
 
 i = 0
@@ -38,24 +37,16 @@ while i < len(lines):
 			file = open(path + name0, "r")
 			lines = lines[:i] + file.readlines() + lines[i+1:]
 			file.close()
-	elif lines[i].startswith("using "):
-		u = ' '.join(lines[i].split()) + '\n'
-		if u not in usings: usings.append(u)
-		del lines[i]
-	elif lines[i].startswith("typedef "):
-		td = ' '.join(lines[i].split())
-		if td in typedefs: del lines[i]
+	elif lines[i].startswith("using ") or lines[i].startswith("typedef "):
+		u = ' '.join(lines[i].split())
+		if u in usings: del lines[i]
 		else:
-			typedefs.add(td)
+			usings.add(u)
 			i += 1
 	else: i += 1
 
 file_header = list(set(includes))
 if len(file_header) > 0: file_header.append("\n")
-file_header += usings
-# if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
-# file_header += list(set(typedefs))
-if len(file_header) > 0 and file_header[-1] != "\n": file_header.append("\n")
 
 if len(file_header) > 0 and file_header[-1] == "\n" and len(lines) > 0 and lines[0] == "\n": file_header = file_header[:-1]
 lines = file_header + lines
