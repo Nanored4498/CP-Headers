@@ -14,9 +14,13 @@ struct FlowAlgo {
 	int N;
 	vector<vector<FlowEdge<T>>> G;
 	FlowAlgo(int N): N(N), G(N) {}
-	void addEdge(int a, int b, T c) {
+	void addArc(int a, int b, T c) {
 		G[a].emplace_back(b, G[b].size(), c);
 		G[b].emplace_back(a, G[a].size()-1, 0);
+	}
+	void addEdge(int a, int b, T c) {
+		G[a].emplace_back(b, G[b].size(), c);
+		G[b].emplace_back(a, G[a].size()-1, c);
 	}
 };
 
