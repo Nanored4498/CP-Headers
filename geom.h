@@ -4,7 +4,7 @@ using namespace std;
 
 template<typename T>
 struct Point {
-	typedef Point Vec;
+	using Vec = Point;
 	T x, y;
 	Point()=default;
 	Point(T x, T y): x(x), y(y) {}
@@ -32,6 +32,7 @@ struct Point {
 	friend bool turnLeft(const Point &a, const Point &b, const Point &c) {
 		return det(b-a, c-a) > 0;
 	}
+	// -1: turn right / 0: aligned / 1: turn left
 	friend int orientation(const Point &a, const Point &b, const Point &c) {
 		T d = det(b-a, c-a);
 		return d == 0 ? 0 : (d > 0 ? 1 : -1);
