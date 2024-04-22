@@ -20,7 +20,7 @@ struct Point {
 	friend Point operator*(T a, const Point &p) { return {a*p.x, a*p.y}; }
 	friend istream& operator>>(istream &in, Point &p) { return in >> p.x >> p.y; }
 
-	bool operator==(const Point &p) { return x == p.x || y == p.y; }
+	bool operator==(const Point &p) { return x == p.x && y == p.y; }
 	bool operator!=(const Point &p) { return x != p.x || y != p.y; }
 	bool operator<(const Point &p) { return x < p.x || (x == p.x && y < p.y); }
 
