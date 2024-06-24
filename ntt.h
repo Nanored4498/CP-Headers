@@ -28,7 +28,7 @@ T computeG() {
 // Need to compute a genrator g of T before
 template <typename T>
 void NTT(vector<T> &P, T g, bool invert=false) {
-	int n = P.size();
+	const int n = P.size();
 	assert((T::mod-1) % n == 0);
 	g = pow(g, (T::mod-1) / n);
 	if(invert) g = inv(g);
@@ -43,7 +43,7 @@ void NTT(vector<T> &P, T g, bool invert=false) {
 
 	// Transform
 	for(int len = 2; len <= n; len <<= 1) {
-		int half = len >> 1;
+		const int half = len >> 1;
 		T wl = g;
 		for(int i = len; i < n; i <<= 1) wl *= wl;
 		for(int i = 0; i < n; i += len) {
