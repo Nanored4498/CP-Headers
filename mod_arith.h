@@ -28,14 +28,14 @@ struct mint {
 	friend constexpr bool operator<(const mint &a, const mint &b) { return a.x < b.x; }
 	friend ostream& operator<<(ostream &stream, const mint &v) { return stream << v.x; }
 	friend istream& operator>>(istream &stream, mint &v) { return stream >> v.x; }
-	mint& constexpr operator+=(const mint &b) { if((x += b.x) >= mod) x -= mod; return *this; }
-	mint& constexpr operator-=(const mint &b) { if((x -= b.x) < 0) x += mod; return *this; }
-	mint& constexpr operator*=(const mint &b) { x = (1LL * x * b.x) % mod; return *this; }
-	mint& constexpr operator/=(const mint &b) { return (*this) *= inv(b); }
-	mint& constexpr operator%=(const mint &b) { x %= b.x; return *this; }
-	mint& constexpr operator++() { return (*this) += 1; }
-	mint& constexpr operator--() { return (*this) -= 1; }
-	mint constexpr operator-() { return -x; }
+	constexpr mint& operator+=(const mint &b) { if((x += b.x) >= mod) x -= mod; return *this; }
+	constexpr mint& operator-=(const mint &b) { if((x -= b.x) < 0) x += mod; return *this; }
+	constexpr mint& operator*=(const mint &b) { x = (1LL * x * b.x) % mod; return *this; }
+	constexpr mint& operator/=(const mint &b) { return (*this) *= inv(b); }
+	constexpr mint& operator%=(const mint &b) { x %= b.x; return *this; }
+	constexpr mint& operator++() { return (*this) += 1; }
+	constexpr mint& operator--() { return (*this) -= 1; }
+	constexpr mint operator-() { return -x; }
 	friend constexpr mint operator+(mint a, const mint &b) { return a += b; }
 	friend constexpr mint operator-(mint a, const mint &b) { return a -= b; }
 	friend constexpr mint operator*(mint a, const mint &b) { return a *= b; }
