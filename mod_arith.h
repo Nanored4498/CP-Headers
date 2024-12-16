@@ -35,7 +35,7 @@ struct mint {
 	constexpr mint& operator%=(const mint &b) { x %= b.x; return *this; }
 	constexpr mint& operator++() { return (*this) += 1; }
 	constexpr mint& operator--() { return (*this) -= 1; }
-	constexpr mint operator-() { return -x; }
+	constexpr mint operator-() const { return -x; }
 	friend constexpr mint operator+(mint a, const mint &b) { return a += b; }
 	friend constexpr mint operator-(mint a, const mint &b) { return a -= b; }
 	friend constexpr mint operator*(mint a, const mint &b) { return a *= b; }

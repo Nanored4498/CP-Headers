@@ -5,7 +5,7 @@ using namespace std;
 
 template<typename T>
 struct Fenwick {
-	#define LSB(i) ((i)&(-(i)))
+	inline static int LSB(int i) { return i&(-i); }
 	vector<T> v;
 
 	Fenwick() = default;
